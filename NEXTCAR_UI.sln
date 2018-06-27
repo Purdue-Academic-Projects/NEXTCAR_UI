@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NEXTCAR_UI", "NEXTCAR_UI\NEXTCAR_UI.csproj", "{B039B8F7-CC77-425D-97BF-545AFC66BA9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B039B8F7-CC77-425D-97BF-545AFC66BA9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B039B8F7-CC77-425D-97BF-545AFC66BA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B039B8F7-CC77-425D-97BF-545AFC66BA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B039B8F7-CC77-425D-97BF-545AFC66BA9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69F9D16D-C0BA-411E-ADE9-ED27D40C573D}
+	EndGlobalSection
+EndGlobal
