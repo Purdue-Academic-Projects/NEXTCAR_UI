@@ -63,8 +63,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="xPCFramework">
-      <HintPath>..\..\DLLs\xPCFramework.dll</HintPath>
+    <Reference Include="xPCFramework, Version=1.1.1.1, Culture=neutral, PublicKeyToken=83928d280c6397e6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ClassLibraries\xPCFramework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
