@@ -8,6 +8,6 @@ namespace NEXTCAR_UI.UserInterface.Interfaces
 {
 	public interface IMainScreen
 	{
-		// Small change
+		
 	}
 }

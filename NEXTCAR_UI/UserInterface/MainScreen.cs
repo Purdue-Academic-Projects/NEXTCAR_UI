@@ -18,7 +18,5 @@ namespace NEXTCAR_UI.UserInterface
 		{
 			InitializeComponent();
 		}
-
-
 	}
 }
