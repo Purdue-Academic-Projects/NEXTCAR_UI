@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using NEXTCAR_UI.UserInterface;
+using NEXTCAR_UI.Business;
+using NEXTCAR_UI.Controllers;
+using NEXTCAR_UI.UserInterface.Views.MainScreen;
 
 namespace NEXTCAR_UI
 {
@@ -18,7 +20,17 @@ namespace NEXTCAR_UI
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainScreen());
+
+			MainScreen mainScreen = new MainScreen();
+			TargetCommunication targetCommunication = new TargetCommunication();
+			RealTimeModel realTimeModel = new RealTimeModel();
+			TargetApplication targetApplication = new TargetApplication();
+
+			CommunicationController communicationController = new CommunicationController(mainScreen, targetCommunication);
+			RealTimeModelController realTimeModelController = new RealTimeModelController(mainScreen, targetCommunication, realTimeModel);
+			ApplicationController applicationController = new ApplicationController(mainScreen, targetCommunication, realTimeModel, targetApplication);
+
+			Application.Run(mainScreen);
 		}
 	}
 }

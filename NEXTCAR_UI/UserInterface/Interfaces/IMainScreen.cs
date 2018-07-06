@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NEXTCAR_UI.UserInterface.Interfaces
 {
-	public interface IMainScreen
+	public interface IMainScreen : IViewTargetConnection, IViewRealTimeModel, IViewApplication
 	{
 		
 	}
