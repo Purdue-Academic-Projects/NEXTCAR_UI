@@ -1,5 +1,5 @@
 ﻿using NEXTCAR_UI.Business.Interfaces;
-
+using NEXTCAR_UI.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,7 @@ namespace NEXTCAR_UI.Business
 	public class RealTimeModel : IModelProperties
 	{
 		private string _realTimeModelLocation = "C\\";
+		private bool _isRealTimeFileLoadedInTextbox;
 
 		public string RealTimeModelFilePath
 		{
@@ -25,6 +26,8 @@ namespace NEXTCAR_UI.Business
 				}
 			}
 		}
+		public bool IsRealTimeFileLoadedInTextbox { get; set; }
+
 
 		public RealTimeModel()
 		{
@@ -49,6 +52,10 @@ namespace NEXTCAR_UI.Business
 
 		private void OnRealTimeModelLocationChanged(string newFilePath)
 		{
+			// If a real-time model file was loaded into the textbox, set its corresponding property true
+			if (newFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)) { IsRealTimeFileLoadedInTextbox = true; }
+			else { IsRealTimeFileLoadedInTextbox = false; }
+
 			EventArgs args = new EventArgs();
 			RealTimeModelLocationChanged?.Invoke(this, args);
 		}

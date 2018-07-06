@@ -20,7 +20,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 
 		public void UpdateRealTimeModelLocationTextBox(string updatedFilePath)
 		{
-			this.RealTimeModelFilePathChange(this.RealTimeModelFileLocationRichTextBox, updatedFilePath);
+			this.RichTextBoxTextChange(this.RealTimeModelFileLocationRichTextBox, updatedFilePath);
 		}
 
 		public void ChangeBuildModelButtonState(bool isButtonEnabled)
@@ -34,20 +34,6 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			{
 				this.BuildModelFileButton.Enabled = false;
 				this.BuildModelFileButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
-			}
-		}
-
-		public void ChangeLoadModelButtonState(bool isButtonEnabled)
-		{
-			if (isButtonEnabled == true)
-			{
-				this.LoadModelToggleButton.Enabled = true;
-				this.LoadModelToggleButton.BackColor = ViewConstants.LOAD_MODEL_BUTTON_COLOR;
-			}
-			else
-			{
-				this.LoadModelToggleButton.Enabled = false;
-				this.LoadModelToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
 			}
 		}
 	}

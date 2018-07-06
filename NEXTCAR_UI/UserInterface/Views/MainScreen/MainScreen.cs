@@ -20,11 +20,6 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			InitializeComponent();
 			InitializeRichTextBoxes();
 			InitializeButtons();
-
-
-
-			MLApp.MLApp matlab = new MLApp.MLApp();
-			string test = matlab.Execute("1+1");
 		}
 
 		public void InitializeRichTextBoxes()
@@ -53,6 +48,14 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			LoadModelToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
 			LoadModelToggleButton.Enabled = false;
 			LoadModelToggleButton.MouseClick += new MouseEventHandler(OnLoadModelToggleButtonClicked);
+
+			RebootTargetPCButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
+			RebootTargetPCButton.Enabled = false;
+			RebootTargetPCButton.MouseClick += new MouseEventHandler(OnRebootTargetPCButtonClicked);
+
+			StartSimulationToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
+			StartSimulationToggleButton.Enabled = false;
+			StartSimulationToggleButton.MouseClick += new MouseEventHandler(OnStartSimulationToggleButtonClicked);
 		}
 	}
 }

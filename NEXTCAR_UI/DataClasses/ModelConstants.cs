@@ -12,5 +12,6 @@ namespace NEXTCAR_UI.DataClasses
 		public static readonly string REAL_TIME_MODEL_FILE_EXTENSION = ".mldatx";
 
 		public static readonly int APPLICATION_PROPERTY_UPDATE_INTERVAL = 100;
+		public static readonly int REBOOT_TIMEOUT_PERIOD = 10000;
 	}
 }

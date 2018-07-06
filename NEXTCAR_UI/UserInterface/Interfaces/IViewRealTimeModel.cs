@@ -14,6 +14,5 @@ namespace NEXTCAR_UI.UserInterface.Interfaces
 
 		void UpdateRealTimeModelLocationTextBox(string updatedFilePath);
 		void ChangeBuildModelButtonState(bool isButtonEnabled);
-		void ChangeLoadModelButtonState(bool isButtonEnabled);
 	}
 }

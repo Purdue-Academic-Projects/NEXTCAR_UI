@@ -17,6 +17,8 @@ namespace NEXTCAR_UI.Business.Interfaces
 		double ExecutionTime { get; }
 		string LoadedModelName { get; }
 		double StopTime { get; }
+		bool IsModelLoadedOnTarget { get; }
+		bool IsSimulationRunning { get; }
 
 		void LoadTargetApplication(ITargetConnection targetConnection, string realTimeModelFilePath);
 		void UnloadTargetApplication(ITargetConnection targetConnection);
@@ -24,6 +26,9 @@ namespace NEXTCAR_UI.Business.Interfaces
 		void StopPropertyUpdatesTimer();
 		void StartTargetApplication();
 		void StopTargetApplication();
+		void ResetApplicationProperties();
+		void StartSimulation();
+		void StopSimulation();
 
 		event EventHandler<ApplicationPropertiesChangedEventArgs> ApplicationPropertiesChanged;
 	}
@@ -60,8 +65,8 @@ namespace NEXTCAR_UI.Business.Interfaces
 			_averageTeT = averageTeT;
 			_maximumTeT = maximumTeT;
 			_cpuOverload = cpuOverload;
-			_executionTime = ExecutionTime;
-			_loadedModelName = LoadedModelName;
+			_executionTime = executionTime;
+			_loadedModelName = loadedModelName;
 			_stopTime = stopTime;
 		}
 	}

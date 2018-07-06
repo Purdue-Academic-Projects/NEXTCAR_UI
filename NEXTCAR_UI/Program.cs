@@ -27,7 +27,7 @@ namespace NEXTCAR_UI
 			TargetApplication targetApplication = new TargetApplication();
 
 			CommunicationController communicationController = new CommunicationController(mainScreen, targetCommunication);
-			RealTimeModelController realTimeModelController = new RealTimeModelController(mainScreen, targetCommunication, realTimeModel);
+			RealTimeModelController realTimeModelController = new RealTimeModelController(mainScreen, targetCommunication, realTimeModel, targetApplication);
 			ApplicationController applicationController = new ApplicationController(mainScreen, targetCommunication, realTimeModel, targetApplication);
 
 			Application.Run(mainScreen);

@@ -91,6 +91,7 @@
     <Compile Include="Business\Interfaces\IApplicationProperties.cs" />
     <Compile Include="Business\Interfaces\IModelProperties.cs" />
     <Compile Include="Business\Interfaces\ITargetConnection.cs" />
+    <Compile Include="Business\MatlabInterface.cs" />
     <Compile Include="Business\RealTimeModel.cs" />
     <Compile Include="Business\TargetApplication.cs" />
     <Compile Include="Business\TargetCommunication.cs" />

@@ -17,6 +17,7 @@ namespace NEXTCAR_UI.Business.Interfaces
 		void DisconnectFromTarget();
 		xPCApplication LoadRealTimeModel(string realTimeModelFilePath);
 		void UnloadRealTimeModel();
+		void RebootTargetPC();
 
 		event EventHandler<TargetConnectionStateChangedEventArgs> TargetConnectionStateChanged;
 	}

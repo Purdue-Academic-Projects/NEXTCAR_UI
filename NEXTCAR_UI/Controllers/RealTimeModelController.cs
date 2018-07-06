@@ -16,16 +16,19 @@ namespace NEXTCAR_UI.Controllers
 		private IMainScreen _mainScreen;
 		private ITargetConnection _targetConnection;
 		private IModelProperties _realTimeModel;
+		private IApplicationProperties _targetApplication;
 
 		public RealTimeModelController(
 			IMainScreen mainScreen,
 			ITargetConnection targetConnection,
-			IModelProperties realTimeModel)
+			IModelProperties realTimeModel,
+			IApplicationProperties targetApplication)
 		{
 			// Register needed models and views
 			this._mainScreen = mainScreen;
 			this._targetConnection = targetConnection;
 			this._realTimeModel = realTimeModel;
+			this._targetApplication = targetApplication;
 
 			// Subscribe to events
 			this._mainScreen.BrowseForModelFileButtonClicked += new MouseEventHandler(HandleBrowseForModelFileButtonClicked);
@@ -41,34 +44,33 @@ namespace NEXTCAR_UI.Controllers
 
 		private void HandleTargetConnectionStateChanged(object sender, TargetConnectionStateChangedEventArgs args)
 		{
-			if(args.IsTargetConnected==false) { this._mainScreen.ChangeLoadModelButtonState(false); }
+			this._mainScreen.ChangeLoadModelToggleButtonState(this._targetConnection.IsTargetConnected,
+																this._realTimeModel.IsRealTimeFileLoadedInTextbox,
+																this._targetApplication.IsModelLoadedOnTarget);
 		}
 
+		// FIX ME
 		private void HandleRealTimeModelLocationChanged(object sender, EventArgs args)
 		{
 			this._mainScreen.UpdateRealTimeModelLocationTextBox(this._realTimeModel.RealTimeModelFilePath);
 			if(this._realTimeModel.RealTimeModelFilePath != null)
 			{
-				if(this._realTimeModel.RealTimeModelFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)==true)
+				if (this._realTimeModel.RealTimeModelFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)==true)
 				{
-					if(_targetConnection.IsTargetConnected == true)
-					{
-						this._mainScreen.ChangeBuildModelButtonState(false);
-						this._mainScreen.ChangeLoadModelButtonState(true);
-					}
+					this._mainScreen.ChangeBuildModelButtonState(false);
 				}
 				else if(this._realTimeModel.RealTimeModelFilePath.Contains(ModelConstants.SIMULINK_FILE_EXTENSION)==true)
 				{
 					this._mainScreen.ChangeBuildModelButtonState(true);
-					this._mainScreen.ChangeLoadModelButtonState(false);
 				}
 				else
 				{
 					this._mainScreen.ChangeBuildModelButtonState(false);
-					this._mainScreen.ChangeLoadModelButtonState(false);
 				}
 			}
-
+			this._mainScreen.ChangeLoadModelToggleButtonState(this._targetConnection.IsTargetConnected,
+													this._realTimeModel.IsRealTimeFileLoadedInTextbox,
+													this._targetApplication.IsModelLoadedOnTarget);
 		}
 	}
 }

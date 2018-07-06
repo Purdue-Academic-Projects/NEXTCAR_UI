@@ -22,7 +22,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 
 		public void ChangeConnectionToggleButtonState(bool isTargetConnected)
 		{
-			ToggleStateChange(this.ConnectToggleButton, isTargetConnected);
+			ConnectionToggleStateChange(this.ConnectToggleButton, isTargetConnected);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using MathWorks.xPCTarget.FrameWork;
 using NEXTCAR_UI.Business.Interfaces;
-
+using NEXTCAR_UI.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +59,7 @@ namespace NEXTCAR_UI.Business
 			this._targetPC = new xPCTargetPC();
 			this._targetPC.TcpIpTargetAddress = TargetIPaddress;
 			this._targetPC.TcpIpTargetPort = TargetPort;
+			this._targetPC.CommunicationTimeOut = ModelConstants.REBOOT_TIMEOUT_PERIOD;
 		}
 
 		public void ConnectToTarget()
@@ -105,6 +106,19 @@ namespace NEXTCAR_UI.Business
 		public void UnloadRealTimeModel()
 		{
 			this._targetPC.Unload();
+		}
+
+		public void RebootTargetPC()
+		{
+			try
+			{
+				this._targetPC.Reboot(ModelConstants.REBOOT_TIMEOUT_PERIOD);
+			}
+			catch(Exception ex)
+			{
+				// This error seems to occur every time the target is reset. Force a disconnect update to be safe.
+				IsTargetConnected = false;
+			}
 		}
 
 		public event EventHandler<TargetConnectionStateChangedEventArgs> TargetConnectionStateChanged;
