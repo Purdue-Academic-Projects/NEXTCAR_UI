@@ -31,42 +31,56 @@ namespace NEXTCAR_UI.Business.Interfaces
 		void StopSimulation();
 
 		event EventHandler<ApplicationPropertiesChangedEventArgs> ApplicationPropertiesChanged;
+		event EventHandler<MaximumTeTChangedEventArgs> MaximumTeTChanged;
+		event EventHandler<StopTimeChangedEventArgs> StopTimeChanged;
 	}
 
 	public class ApplicationPropertiesChangedEventArgs : EventArgs
 	{
 		private xPCAppStatus _targetStatus;
 		private double _averageTeT;
-		private double _maximumTeT;
 		private bool _cpuOverload;
 		private double _executionTime;
 		private string _loadedModelName;
-		private double _stopTime;
-
 		public xPCAppStatus TargetStatus { get { return _targetStatus; } }
 		public double AverageTeT { get { return _averageTeT; } }
-		public double MaximumTeT { get { return _maximumTeT; } }
 		public bool CpuOverload { get { return _cpuOverload; } }
 		public double ExecutionTime { get { return _executionTime; } }
 		public string LoadedModelName { get { return _loadedModelName; } }
-		public double StopTime { get { return _stopTime; } }
-
 
 		public ApplicationPropertiesChangedEventArgs(
 			xPCAppStatus targetStatus,
 			double averageTeT,
-			double maximumTeT,
 			bool cpuOverload,
 			double executionTime,
-			string loadedModelName,
-			double stopTime)
+			string loadedModelName)
 		{
 			_targetStatus = targetStatus;
 			_averageTeT = averageTeT;
-			_maximumTeT = maximumTeT;
 			_cpuOverload = cpuOverload;
 			_executionTime = executionTime;
 			_loadedModelName = loadedModelName;
+		}
+	}
+
+	public class MaximumTeTChangedEventArgs : EventArgs
+	{
+		private double _maximumTeT;
+		public double MaximumTeT { get { return _maximumTeT; } }
+
+		public MaximumTeTChangedEventArgs(double maximumTeT)
+		{
+			_maximumTeT = maximumTeT;
+		}
+	}
+
+	public class StopTimeChangedEventArgs : EventArgs
+	{
+		private double _stopTime;
+		public double StopTime { get { return _stopTime; } }
+
+		public StopTimeChangedEventArgs(double stopTime)
+		{
 			_stopTime = stopTime;
 		}
 	}

@@ -30,16 +30,22 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			PortRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
 			PortRichTextBox.TextChanged += new EventHandler(OnPortTextChanged);
 
+			RealTimeModelFileLocationRichTextBox.DetectUrls = false;
 			RealTimeModelFileLocationRichTextBox.SelectionAlignment = HorizontalAlignment.Left;
 			RealTimeModelFileLocationRichTextBox.TextChanged += new EventHandler(OnModelFileLocationTextChanged);
+
+			LoadedModelRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
+			StopTimeLabelRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
 		}
 
 		public void InitializeButtons()
 		{
 			ConnectToggleButton.BackColor = ViewConstants.CONNECT_BUTTON_COLOR;
+			ConnectToggleButton.GlowColor = ViewConstants.CONNECT_BUTTON_COLOR;
 			ConnectToggleButton.MouseClick += new MouseEventHandler(OnConnectToggleButtonClicked);
 
 			BrowseForModelFileButton.BackColor = ViewConstants.ACTIVE_BUTTON_COLOR;
+			BrowseForModelFileButton.GlowColor = ViewConstants.ACTIVE_BUTTON_COLOR;
 			BrowseForModelFileButton.MouseClick += new MouseEventHandler(OnBrowseForModelFileButtonClicked);
 
 			BuildModelFileButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;

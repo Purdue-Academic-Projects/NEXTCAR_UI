@@ -45,23 +45,26 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.BuildModelFileButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
 			this.LoadModelToggleButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
 			this.DataLoggingGroupBox = new System.Windows.Forms.GroupBox();
-			this.AverageTeTLabel = new System.Windows.Forms.Label();
-			this.AverageTeTRichTextBox = new System.Windows.Forms.RichTextBox();
-			this.CPUOverloadLabel = new System.Windows.Forms.Label();
-			this.CPUOverloadRichTextBox = new System.Windows.Forms.RichTextBox();
-			this.ExecutionTimeLabel = new System.Windows.Forms.Label();
-			this.ExecutionTimeRichTextBox = new System.Windows.Forms.RichTextBox();
-			this.MaximumTeTLabel = new System.Windows.Forms.Label();
-			this.MaximumTeTRichTextBox = new System.Windows.Forms.RichTextBox();
-			this.LoadedModelRichTextBox = new System.Windows.Forms.RichTextBox();
-			this.LoadedModelLabel = new System.Windows.Forms.Label();
+			this.RebootTargetPCButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
+			this.StartSimulationToggleButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
 			this.StopTimeLabelRichTextBox = new System.Windows.Forms.RichTextBox();
 			this.StopTimeLabel = new System.Windows.Forms.Label();
-			this.StartSimulationToggleButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
-			this.RebootTargetPCButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
+			this.LoadedModelRichTextBox = new System.Windows.Forms.RichTextBox();
+			this.LoadedModelLabel = new System.Windows.Forms.Label();
+			this.TargetApplicationStatusStrip = new System.Windows.Forms.StatusStrip();
+			this.TargetStatusToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			this.ExecutionTimeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.ExecutionTimeToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			this.AverageTetToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.AverageTetToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			this.MaximumTetToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.MaximumTetToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			this.CpuOverloadedToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.CpuOverloadedToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.ConnectionStatusGroupBox.SuspendLayout();
 			this.RealTimeModelGroupBox.SuspendLayout();
 			this.DataLoggingGroupBox.SuspendLayout();
+			this.TargetApplicationStatusStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// ConnectionStatusGroupBox
@@ -102,9 +105,9 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			// 
 			this.IPaddressLabel.BackColor = System.Drawing.Color.Black;
 			this.IPaddressLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.IPaddressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.IPaddressLabel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.IPaddressLabel.ForeColor = System.Drawing.Color.White;
-			this.IPaddressLabel.Location = new System.Drawing.Point(98, 19);
+			this.IPaddressLabel.Location = new System.Drawing.Point(6, 20);
 			this.IPaddressLabel.Name = "IPaddressLabel";
 			this.IPaddressLabel.Size = new System.Drawing.Size(96, 23);
 			this.IPaddressLabel.TabIndex = 1;
@@ -116,9 +119,9 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.PortLabel.BackColor = System.Drawing.Color.Black;
 			this.PortLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.PortLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.PortLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PortLabel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PortLabel.ForeColor = System.Drawing.Color.White;
-			this.PortLabel.Location = new System.Drawing.Point(98, 43);
+			this.PortLabel.Location = new System.Drawing.Point(6, 43);
 			this.PortLabel.Name = "PortLabel";
 			this.PortLabel.Size = new System.Drawing.Size(96, 23);
 			this.PortLabel.TabIndex = 2;
@@ -127,8 +130,8 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			// 
 			// IPaddressRichTextBox
 			// 
-			this.IPaddressRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.IPaddressRichTextBox.Location = new System.Drawing.Point(6, 19);
+			this.IPaddressRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.IPaddressRichTextBox.Location = new System.Drawing.Point(103, 20);
 			this.IPaddressRichTextBox.Name = "IPaddressRichTextBox";
 			this.IPaddressRichTextBox.Size = new System.Drawing.Size(91, 23);
 			this.IPaddressRichTextBox.TabIndex = 2;
@@ -136,8 +139,8 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			// 
 			// PortRichTextBox
 			// 
-			this.PortRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PortRichTextBox.Location = new System.Drawing.Point(6, 42);
+			this.PortRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PortRichTextBox.Location = new System.Drawing.Point(103, 43);
 			this.PortRichTextBox.Name = "PortRichTextBox";
 			this.PortRichTextBox.Size = new System.Drawing.Size(91, 23);
 			this.PortRichTextBox.TabIndex = 1;
@@ -154,7 +157,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.RealTimeModelGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.RealTimeModelGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.RealTimeModelGroupBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.RealTimeModelGroupBox.Location = new System.Drawing.Point(12, 115);
+			this.RealTimeModelGroupBox.Location = new System.Drawing.Point(12, 120);
 			this.RealTimeModelGroupBox.Name = "RealTimeModelGroupBox";
 			this.RealTimeModelGroupBox.Size = new System.Drawing.Size(200, 97);
 			this.RealTimeModelGroupBox.TabIndex = 1;
@@ -163,7 +166,9 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			// 
 			// RealTimeModelFileLocationRichTextBox
 			// 
-			this.RealTimeModelFileLocationRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.RealTimeModelFileLocationRichTextBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+			this.RealTimeModelFileLocationRichTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+			this.RealTimeModelFileLocationRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.RealTimeModelFileLocationRichTextBox.Location = new System.Drawing.Point(6, 19);
 			this.RealTimeModelFileLocationRichTextBox.Multiline = false;
 			this.RealTimeModelFileLocationRichTextBox.Name = "RealTimeModelFileLocationRichTextBox";
@@ -227,130 +232,77 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.DataLoggingGroupBox.Controls.Add(this.StopTimeLabel);
 			this.DataLoggingGroupBox.Controls.Add(this.LoadedModelRichTextBox);
 			this.DataLoggingGroupBox.Controls.Add(this.LoadedModelLabel);
-			this.DataLoggingGroupBox.Controls.Add(this.MaximumTeTRichTextBox);
-			this.DataLoggingGroupBox.Controls.Add(this.MaximumTeTLabel);
-			this.DataLoggingGroupBox.Controls.Add(this.ExecutionTimeRichTextBox);
-			this.DataLoggingGroupBox.Controls.Add(this.ExecutionTimeLabel);
-			this.DataLoggingGroupBox.Controls.Add(this.CPUOverloadRichTextBox);
-			this.DataLoggingGroupBox.Controls.Add(this.CPUOverloadLabel);
-			this.DataLoggingGroupBox.Controls.Add(this.AverageTeTRichTextBox);
-			this.DataLoggingGroupBox.Controls.Add(this.AverageTeTLabel);
 			this.DataLoggingGroupBox.Cursor = System.Windows.Forms.Cursors.Default;
 			this.DataLoggingGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.DataLoggingGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.DataLoggingGroupBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.DataLoggingGroupBox.Location = new System.Drawing.Point(12, 218);
+			this.DataLoggingGroupBox.ForeColor = System.Drawing.Color.White;
+			this.DataLoggingGroupBox.Location = new System.Drawing.Point(12, 228);
 			this.DataLoggingGroupBox.Name = "DataLoggingGroupBox";
-			this.DataLoggingGroupBox.Size = new System.Drawing.Size(200, 210);
+			this.DataLoggingGroupBox.Size = new System.Drawing.Size(200, 118);
 			this.DataLoggingGroupBox.TabIndex = 2;
 			this.DataLoggingGroupBox.TabStop = false;
 			this.DataLoggingGroupBox.Text = "TARGET PROPERTIES";
 			// 
-			// AverageTeTLabel
+			// RebootTargetPCButton
 			// 
-			this.AverageTeTLabel.BackColor = System.Drawing.Color.Black;
-			this.AverageTeTLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.AverageTeTLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.AverageTeTLabel.ForeColor = System.Drawing.Color.White;
-			this.AverageTeTLabel.Location = new System.Drawing.Point(6, 19);
-			this.AverageTeTLabel.Name = "AverageTeTLabel";
-			this.AverageTeTLabel.Size = new System.Drawing.Size(96, 23);
-			this.AverageTeTLabel.TabIndex = 2;
-			this.AverageTeTLabel.Text = "AverageTeT";
-			this.AverageTeTLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.RebootTargetPCButton.BackColor = System.Drawing.SystemColors.HotTrack;
+			this.RebootTargetPCButton.CornerRadius = 1;
+			this.RebootTargetPCButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.RebootTargetPCButton.ForeColor = System.Drawing.Color.Black;
+			this.RebootTargetPCButton.GlowColor = System.Drawing.Color.Lime;
+			this.RebootTargetPCButton.Location = new System.Drawing.Point(6, 64);
+			this.RebootTargetPCButton.Name = "RebootTargetPCButton";
+			this.RebootTargetPCButton.PrimaryColor = System.Drawing.Color.Lime;
+			this.RebootTargetPCButton.SecondaryColor = System.Drawing.Color.Red;
+			this.RebootTargetPCButton.Size = new System.Drawing.Size(188, 23);
+			this.RebootTargetPCButton.TabIndex = 4;
+			this.RebootTargetPCButton.Text = "REBOOT TARGET PC";
 			// 
-			// AverageTeTRichTextBox
+			// StartSimulationToggleButton
 			// 
-			this.AverageTeTRichTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.AverageTeTRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.AverageTeTRichTextBox.Location = new System.Drawing.Point(103, 19);
-			this.AverageTeTRichTextBox.Multiline = false;
-			this.AverageTeTRichTextBox.Name = "AverageTeTRichTextBox";
-			this.AverageTeTRichTextBox.ReadOnly = true;
-			this.AverageTeTRichTextBox.Size = new System.Drawing.Size(91, 23);
-			this.AverageTeTRichTextBox.TabIndex = 3;
-			this.AverageTeTRichTextBox.Text = "";
+			this.StartSimulationToggleButton.BackColor = System.Drawing.Color.Lime;
+			this.StartSimulationToggleButton.CornerRadius = 1;
+			this.StartSimulationToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StartSimulationToggleButton.ForeColor = System.Drawing.Color.Black;
+			this.StartSimulationToggleButton.GlowColor = System.Drawing.Color.Lime;
+			this.StartSimulationToggleButton.Location = new System.Drawing.Point(6, 87);
+			this.StartSimulationToggleButton.Name = "StartSimulationToggleButton";
+			this.StartSimulationToggleButton.PrimaryColor = System.Drawing.Color.Lime;
+			this.StartSimulationToggleButton.SecondaryColor = System.Drawing.Color.Red;
+			this.StartSimulationToggleButton.Size = new System.Drawing.Size(188, 23);
+			this.StartSimulationToggleButton.TabIndex = 3;
+			this.StartSimulationToggleButton.Text = "START SIMULATION";
 			// 
-			// CPUOverloadLabel
+			// StopTimeLabelRichTextBox
 			// 
-			this.CPUOverloadLabel.BackColor = System.Drawing.Color.Black;
-			this.CPUOverloadLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.CPUOverloadLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.CPUOverloadLabel.ForeColor = System.Drawing.Color.White;
-			this.CPUOverloadLabel.Location = new System.Drawing.Point(6, 66);
-			this.CPUOverloadLabel.Name = "CPUOverloadLabel";
-			this.CPUOverloadLabel.Size = new System.Drawing.Size(96, 23);
-			this.CPUOverloadLabel.TabIndex = 4;
-			this.CPUOverloadLabel.Text = "CPU Overload";
-			this.CPUOverloadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.StopTimeLabelRichTextBox.BackColor = System.Drawing.Color.White;
+			this.StopTimeLabelRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StopTimeLabelRichTextBox.Location = new System.Drawing.Point(103, 41);
+			this.StopTimeLabelRichTextBox.Multiline = false;
+			this.StopTimeLabelRichTextBox.Name = "StopTimeLabelRichTextBox";
+			this.StopTimeLabelRichTextBox.Size = new System.Drawing.Size(91, 23);
+			this.StopTimeLabelRichTextBox.TabIndex = 15;
+			this.StopTimeLabelRichTextBox.Text = "";
 			// 
-			// CPUOverloadRichTextBox
+			// StopTimeLabel
 			// 
-			this.CPUOverloadRichTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.CPUOverloadRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.CPUOverloadRichTextBox.Location = new System.Drawing.Point(103, 66);
-			this.CPUOverloadRichTextBox.Multiline = false;
-			this.CPUOverloadRichTextBox.Name = "CPUOverloadRichTextBox";
-			this.CPUOverloadRichTextBox.ReadOnly = true;
-			this.CPUOverloadRichTextBox.Size = new System.Drawing.Size(91, 23);
-			this.CPUOverloadRichTextBox.TabIndex = 5;
-			this.CPUOverloadRichTextBox.Text = "";
-			// 
-			// ExecutionTimeLabel
-			// 
-			this.ExecutionTimeLabel.BackColor = System.Drawing.Color.Black;
-			this.ExecutionTimeLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.ExecutionTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.ExecutionTimeLabel.ForeColor = System.Drawing.Color.White;
-			this.ExecutionTimeLabel.Location = new System.Drawing.Point(6, 89);
-			this.ExecutionTimeLabel.Name = "ExecutionTimeLabel";
-			this.ExecutionTimeLabel.Size = new System.Drawing.Size(96, 23);
-			this.ExecutionTimeLabel.TabIndex = 6;
-			this.ExecutionTimeLabel.Text = "Execution Time";
-			this.ExecutionTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// ExecutionTimeRichTextBox
-			// 
-			this.ExecutionTimeRichTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ExecutionTimeRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.ExecutionTimeRichTextBox.Location = new System.Drawing.Point(103, 89);
-			this.ExecutionTimeRichTextBox.Multiline = false;
-			this.ExecutionTimeRichTextBox.Name = "ExecutionTimeRichTextBox";
-			this.ExecutionTimeRichTextBox.ReadOnly = true;
-			this.ExecutionTimeRichTextBox.Size = new System.Drawing.Size(91, 23);
-			this.ExecutionTimeRichTextBox.TabIndex = 7;
-			this.ExecutionTimeRichTextBox.Text = "";
-			// 
-			// MaximumTeTLabel
-			// 
-			this.MaximumTeTLabel.BackColor = System.Drawing.Color.Black;
-			this.MaximumTeTLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.MaximumTeTLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MaximumTeTLabel.ForeColor = System.Drawing.Color.White;
-			this.MaximumTeTLabel.Location = new System.Drawing.Point(6, 42);
-			this.MaximumTeTLabel.Name = "MaximumTeTLabel";
-			this.MaximumTeTLabel.Size = new System.Drawing.Size(96, 23);
-			this.MaximumTeTLabel.TabIndex = 8;
-			this.MaximumTeTLabel.Text = "MaximumTeT";
-			this.MaximumTeTLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// MaximumTeTRichTextBox
-			// 
-			this.MaximumTeTRichTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.MaximumTeTRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MaximumTeTRichTextBox.Location = new System.Drawing.Point(103, 42);
-			this.MaximumTeTRichTextBox.Multiline = false;
-			this.MaximumTeTRichTextBox.Name = "MaximumTeTRichTextBox";
-			this.MaximumTeTRichTextBox.ReadOnly = true;
-			this.MaximumTeTRichTextBox.Size = new System.Drawing.Size(91, 23);
-			this.MaximumTeTRichTextBox.TabIndex = 9;
-			this.MaximumTeTRichTextBox.Text = "";
+			this.StopTimeLabel.BackColor = System.Drawing.Color.Black;
+			this.StopTimeLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.StopTimeLabel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StopTimeLabel.ForeColor = System.Drawing.Color.White;
+			this.StopTimeLabel.Location = new System.Drawing.Point(6, 41);
+			this.StopTimeLabel.Name = "StopTimeLabel";
+			this.StopTimeLabel.Size = new System.Drawing.Size(96, 23);
+			this.StopTimeLabel.TabIndex = 14;
+			this.StopTimeLabel.Text = "Stop Time";
+			this.StopTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// LoadedModelRichTextBox
 			// 
-			this.LoadedModelRichTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.LoadedModelRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LoadedModelRichTextBox.Location = new System.Drawing.Point(103, 112);
+			this.LoadedModelRichTextBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+			this.LoadedModelRichTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+			this.LoadedModelRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LoadedModelRichTextBox.Location = new System.Drawing.Point(103, 18);
 			this.LoadedModelRichTextBox.Multiline = false;
 			this.LoadedModelRichTextBox.Name = "LoadedModelRichTextBox";
 			this.LoadedModelRichTextBox.ReadOnly = true;
@@ -362,68 +314,97 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			// 
 			this.LoadedModelLabel.BackColor = System.Drawing.Color.Black;
 			this.LoadedModelLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.LoadedModelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LoadedModelLabel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.LoadedModelLabel.ForeColor = System.Drawing.Color.White;
-			this.LoadedModelLabel.Location = new System.Drawing.Point(6, 112);
+			this.LoadedModelLabel.Location = new System.Drawing.Point(6, 18);
 			this.LoadedModelLabel.Name = "LoadedModelLabel";
 			this.LoadedModelLabel.Size = new System.Drawing.Size(96, 23);
 			this.LoadedModelLabel.TabIndex = 12;
 			this.LoadedModelLabel.Text = "Loaded Model";
 			this.LoadedModelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// StopTimeLabelRichTextBox
+			// TargetApplicationStatusStrip
 			// 
-			this.StopTimeLabelRichTextBox.BackColor = System.Drawing.Color.White;
-			this.StopTimeLabelRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.StopTimeLabelRichTextBox.Location = new System.Drawing.Point(103, 135);
-			this.StopTimeLabelRichTextBox.Multiline = false;
-			this.StopTimeLabelRichTextBox.Name = "StopTimeLabelRichTextBox";
-			this.StopTimeLabelRichTextBox.Size = new System.Drawing.Size(91, 23);
-			this.StopTimeLabelRichTextBox.TabIndex = 15;
-			this.StopTimeLabelRichTextBox.Text = "";
+			this.TargetApplicationStatusStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.TargetApplicationStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TargetStatusToolStripStatus,
+            this.ExecutionTimeToolStripStatusLabel,
+            this.ExecutionTimeToolStripStatus,
+            this.AverageTetToolStripStatusLabel,
+            this.AverageTetToolStripStatus,
+            this.MaximumTetToolStripStatusLabel,
+            this.MaximumTetToolStripStatus,
+            this.CpuOverloadedToolStripStatusLabel,
+            this.CpuOverloadedToolStripStatus});
+			this.TargetApplicationStatusStrip.Location = new System.Drawing.Point(0, 404);
+			this.TargetApplicationStatusStrip.Name = "TargetApplicationStatusStrip";
+			this.TargetApplicationStatusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			this.TargetApplicationStatusStrip.Size = new System.Drawing.Size(800, 22);
+			this.TargetApplicationStatusStrip.SizingGrip = false;
+			this.TargetApplicationStatusStrip.TabIndex = 3;
+			this.TargetApplicationStatusStrip.Text = "statusStrip1";
 			// 
-			// StopTimeLabel
+			// TargetStatusToolStripStatus
 			// 
-			this.StopTimeLabel.BackColor = System.Drawing.Color.Black;
-			this.StopTimeLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.StopTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.StopTimeLabel.ForeColor = System.Drawing.Color.White;
-			this.StopTimeLabel.Location = new System.Drawing.Point(6, 135);
-			this.StopTimeLabel.Name = "StopTimeLabel";
-			this.StopTimeLabel.Size = new System.Drawing.Size(96, 23);
-			this.StopTimeLabel.TabIndex = 14;
-			this.StopTimeLabel.Text = "Stop Time";
-			this.StopTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.TargetStatusToolStripStatus.Name = "TargetStatusToolStripStatus";
+			this.TargetStatusToolStripStatus.Size = new System.Drawing.Size(51, 17);
+			this.TargetStatusToolStripStatus.Text = "Stopped";
 			// 
-			// StartSimulationToggleButton
+			// ExecutionTimeToolStripStatusLabel
 			// 
-			this.StartSimulationToggleButton.BackColor = System.Drawing.Color.Lime;
-			this.StartSimulationToggleButton.CornerRadius = 1;
-			this.StartSimulationToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.StartSimulationToggleButton.ForeColor = System.Drawing.Color.Black;
-			this.StartSimulationToggleButton.GlowColor = System.Drawing.Color.Lime;
-			this.StartSimulationToggleButton.Location = new System.Drawing.Point(6, 181);
-			this.StartSimulationToggleButton.Name = "StartSimulationToggleButton";
-			this.StartSimulationToggleButton.PrimaryColor = System.Drawing.Color.Lime;
-			this.StartSimulationToggleButton.SecondaryColor = System.Drawing.Color.Red;
-			this.StartSimulationToggleButton.Size = new System.Drawing.Size(188, 23);
-			this.StartSimulationToggleButton.TabIndex = 3;
-			this.StartSimulationToggleButton.Text = "START SIMULATION";
+			this.ExecutionTimeToolStripStatusLabel.Margin = new System.Windows.Forms.Padding(50, 3, 0, 2);
+			this.ExecutionTimeToolStripStatusLabel.Name = "ExecutionTimeToolStripStatusLabel";
+			this.ExecutionTimeToolStripStatusLabel.Size = new System.Drawing.Size(115, 17);
+			this.ExecutionTimeToolStripStatusLabel.Spring = true;
+			this.ExecutionTimeToolStripStatusLabel.Text = "Execution Time:";
 			// 
-			// RebootTargetPCButton
+			// ExecutionTimeToolStripStatus
 			// 
-			this.RebootTargetPCButton.BackColor = System.Drawing.SystemColors.HotTrack;
-			this.RebootTargetPCButton.CornerRadius = 1;
-			this.RebootTargetPCButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.RebootTargetPCButton.ForeColor = System.Drawing.Color.Black;
-			this.RebootTargetPCButton.GlowColor = System.Drawing.Color.Lime;
-			this.RebootTargetPCButton.Location = new System.Drawing.Point(6, 158);
-			this.RebootTargetPCButton.Name = "RebootTargetPCButton";
-			this.RebootTargetPCButton.PrimaryColor = System.Drawing.Color.Lime;
-			this.RebootTargetPCButton.SecondaryColor = System.Drawing.Color.Red;
-			this.RebootTargetPCButton.Size = new System.Drawing.Size(188, 23);
-			this.RebootTargetPCButton.TabIndex = 4;
-			this.RebootTargetPCButton.Text = "REBOOT TARGET PC";
+			this.ExecutionTimeToolStripStatus.Name = "ExecutionTimeToolStripStatus";
+			this.ExecutionTimeToolStripStatus.Size = new System.Drawing.Size(13, 17);
+			this.ExecutionTimeToolStripStatus.Text = "0";
+			// 
+			// AverageTetToolStripStatusLabel
+			// 
+			this.AverageTetToolStripStatusLabel.Margin = new System.Windows.Forms.Padding(50, 3, 0, 2);
+			this.AverageTetToolStripStatusLabel.Name = "AverageTetToolStripStatusLabel";
+			this.AverageTetToolStripStatusLabel.Size = new System.Drawing.Size(115, 17);
+			this.AverageTetToolStripStatusLabel.Spring = true;
+			this.AverageTetToolStripStatusLabel.Text = "Average TET:";
+			// 
+			// AverageTetToolStripStatus
+			// 
+			this.AverageTetToolStripStatus.Name = "AverageTetToolStripStatus";
+			this.AverageTetToolStripStatus.Size = new System.Drawing.Size(13, 17);
+			this.AverageTetToolStripStatus.Text = "0";
+			// 
+			// MaximumTetToolStripStatusLabel
+			// 
+			this.MaximumTetToolStripStatusLabel.Margin = new System.Windows.Forms.Padding(50, 3, 0, 2);
+			this.MaximumTetToolStripStatusLabel.Name = "MaximumTetToolStripStatusLabel";
+			this.MaximumTetToolStripStatusLabel.Size = new System.Drawing.Size(115, 17);
+			this.MaximumTetToolStripStatusLabel.Spring = true;
+			this.MaximumTetToolStripStatusLabel.Text = "Maximum TET:";
+			// 
+			// MaximumTetToolStripStatus
+			// 
+			this.MaximumTetToolStripStatus.Name = "MaximumTetToolStripStatus";
+			this.MaximumTetToolStripStatus.Size = new System.Drawing.Size(13, 17);
+			this.MaximumTetToolStripStatus.Text = "0";
+			// 
+			// CpuOverloadedToolStripStatusLabel
+			// 
+			this.CpuOverloadedToolStripStatusLabel.Margin = new System.Windows.Forms.Padding(50, 3, 0, 2);
+			this.CpuOverloadedToolStripStatusLabel.Name = "CpuOverloadedToolStripStatusLabel";
+			this.CpuOverloadedToolStripStatusLabel.Size = new System.Drawing.Size(115, 17);
+			this.CpuOverloadedToolStripStatusLabel.Spring = true;
+			this.CpuOverloadedToolStripStatusLabel.Text = "CPU Overloaded:";
+			// 
+			// CpuOverloadedToolStripStatus
+			// 
+			this.CpuOverloadedToolStripStatus.Name = "CpuOverloadedToolStripStatus";
+			this.CpuOverloadedToolStripStatus.Size = new System.Drawing.Size(33, 17);
+			this.CpuOverloadedToolStripStatus.Text = "False";
 			// 
 			// MainScreen
 			// 
@@ -432,10 +413,12 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.BackgroundImage = global::NEXTCAR_UI.Properties.Resources.PurdueLogo;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.ClientSize = new System.Drawing.Size(800, 436);
+			this.ClientSize = new System.Drawing.Size(800, 426);
+			this.Controls.Add(this.TargetApplicationStatusStrip);
 			this.Controls.Add(this.DataLoggingGroupBox);
 			this.Controls.Add(this.RealTimeModelGroupBox);
 			this.Controls.Add(this.ConnectionStatusGroupBox);
+			this.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainScreen";
@@ -444,7 +427,10 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.ConnectionStatusGroupBox.ResumeLayout(false);
 			this.RealTimeModelGroupBox.ResumeLayout(false);
 			this.DataLoggingGroupBox.ResumeLayout(false);
+			this.TargetApplicationStatusStrip.ResumeLayout(false);
+			this.TargetApplicationStatusStrip.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -467,15 +453,17 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		private Label StopTimeLabel;
 		private RichTextBox LoadedModelRichTextBox;
 		private Label LoadedModelLabel;
-		private RichTextBox MaximumTeTRichTextBox;
-		private Label MaximumTeTLabel;
-		private RichTextBox ExecutionTimeRichTextBox;
-		private Label ExecutionTimeLabel;
-		private RichTextBox CPUOverloadRichTextBox;
-		private Label CPUOverloadLabel;
-		private RichTextBox AverageTeTRichTextBox;
-		private Label AverageTeTLabel;
 		private ToggleButton RebootTargetPCButton;
+		private StatusStrip TargetApplicationStatusStrip;
+		private ToolStripStatusLabel ExecutionTimeToolStripStatusLabel;
+		private ToolStripStatusLabel ExecutionTimeToolStripStatus;
+		private ToolStripStatusLabel TargetStatusToolStripStatus;
+		private ToolStripStatusLabel AverageTetToolStripStatusLabel;
+		private ToolStripStatusLabel AverageTetToolStripStatus;
+		private ToolStripStatusLabel MaximumTetToolStripStatusLabel;
+		private ToolStripStatusLabel MaximumTetToolStripStatus;
+		private ToolStripStatusLabel CpuOverloadedToolStripStatusLabel;
+		private ToolStripStatusLabel CpuOverloadedToolStripStatus;
 	}
 }
 

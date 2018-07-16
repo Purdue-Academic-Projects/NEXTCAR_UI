@@ -26,7 +26,7 @@ namespace NEXTCAR_UI.Business
 				}
 			}
 		}
-		public bool IsRealTimeFileLoadedInTextbox { get; set; }
+		public bool IsRealTimeFileLoadedInTextbox { get { return _isRealTimeFileLoadedInTextbox; } private set { _isRealTimeFileLoadedInTextbox = value; } }
 
 
 		public RealTimeModel()

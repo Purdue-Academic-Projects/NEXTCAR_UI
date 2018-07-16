@@ -21,6 +21,10 @@ namespace NEXTCAR_UI.DataClasses
 		public static readonly Color ACTIVE_BUTTON_COLOR = SystemColors.HotTrack;
 		public static readonly Color INACTIVE_BUTTON_COLOR = SystemColors.ControlDarkDark;
 
+		public static readonly Color CPU_OVERLOADED_COLOR = Color.Red;
+		public static readonly Color SIMULATION_STOPPED_COLOR = SystemColors.ControlDarkDark;
+		public static readonly Color SIMULATION_RUNNING_COLOR = Color.Lime;
+
 		public static readonly string CONNECT_BUTTON_TEXT = "CONNECT";
 		public static readonly string DISCONNECT_BUTTON_TEXT = "DISCONNECT";
 

@@ -9,7 +9,7 @@ namespace NEXTCAR_UI.Business.Interfaces
 	public interface IModelProperties
 	{
 		string RealTimeModelFilePath { get; set; }
-		bool IsRealTimeFileLoadedInTextbox { get; set; }
+		bool IsRealTimeFileLoadedInTextbox { get; }
 
 		void BrowseForModel();
 

@@ -17,6 +17,8 @@ namespace NEXTCAR_UI.UserInterface.Interfaces
 
 		void ChangeLoadModelToggleButtonState(bool isTargetConnected, bool isRealTimeFileLoadedInTextbox, bool isModelLoadedOnTarget);
 		void UpdateApplicationProperties(ApplicationPropertiesChangedEventArgs applicationProperties);
+		void UpdateMaximumTeTValue(double maximumTeT);
+		void UpdateStopTimeValue(double stopTime);
 		void ChangeRebootButtonState(bool isTargetConnected);
 		void ChangeSimulationStartToggleButtonState(bool isTargetConnected, bool isModelLoadedOnTarget, bool isTargetRunning);
 	}

@@ -27,11 +27,13 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 				{
 					ToggleButton.Text = ViewConstants.CONNECT_BUTTON_TEXT;
 					ToggleButton.BackColor = ViewConstants.CONNECT_BUTTON_COLOR;
+					ToggleButton.GlowColor = ViewConstants.CONNECT_BUTTON_COLOR;
 				}
 				else
 				{
 					ToggleButton.Text = ViewConstants.DISCONNECT_BUTTON_TEXT;
 					ToggleButton.BackColor = ViewConstants.DISCONNECT_BUTTON_COLOR;
+					ToggleButton.GlowColor = ViewConstants.DISCONNECT_BUTTON_COLOR;
 				}
 			}
 		}
@@ -52,11 +54,11 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		}
 
 		// Thread-safe handling of the load application toggle button
-		delegate void LoadApplicationToggleButtonChangeCallback(ToggleButton ToggleButton, 
-			bool isTargetConnected, 
+		delegate void LoadApplicationToggleButtonChangeCallback(ToggleButton ToggleButton,
+			bool isTargetConnected,
 			bool isRealTimeFileLoadedInTextbox,
 			bool isModelLoadedOnTarget);
-		private void LoadApplicationToggleButtonChange(ToggleButton ToggleButton, 
+		private void LoadApplicationToggleButtonChange(ToggleButton ToggleButton,
 			bool isTargetConnected,
 			bool isRealTimeFileLoadedInTextbox,
 			bool isModelLoadedOnTarget)
@@ -75,6 +77,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 					{
 						ToggleButton.Text = ViewConstants.UNLOAD_BUTTON_TEXT;
 						ToggleButton.BackColor = ViewConstants.UNLOAD_MODEL_BUTTON_COLOR;
+						ToggleButton.GlowColor = ViewConstants.UNLOAD_MODEL_BUTTON_COLOR;
 						ToggleButton.Enabled = true;
 					}
 					else
@@ -83,6 +86,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 						{
 							ToggleButton.Text = ViewConstants.LOAD_BUTTON_TEXT;
 							ToggleButton.BackColor = ViewConstants.LOAD_MODEL_BUTTON_COLOR;
+							ToggleButton.GlowColor = ViewConstants.LOAD_MODEL_BUTTON_COLOR;
 							ToggleButton.Enabled = true;
 						}
 						else
@@ -122,6 +126,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 				else
 				{
 					ToggleButton.BackColor = ViewConstants.ACTIVE_BUTTON_COLOR;
+					ToggleButton.GlowColor = ViewConstants.ACTIVE_BUTTON_COLOR;
 					ToggleButton.Enabled = true;
 				}
 			}
@@ -129,12 +134,12 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 
 		// Thread-safe handling of the simulation start toggle button
 		delegate void StartSimulationToggleButtonChangeCallback(
-			ToggleButton ToggleButton, 
-			bool isTargetConnected, 
-			bool isModelLoadedOnTarget, 
+			ToggleButton ToggleButton,
+			bool isTargetConnected,
+			bool isModelLoadedOnTarget,
 			bool isTargetRunning);
 		private void StartSimulationToggleButtonChange(
-			ToggleButton ToggleButton, 
+			ToggleButton ToggleButton,
 			bool isTargetConnected,
 			bool isModelLoadedOnTarget,
 			bool isTargetRunning)
@@ -146,18 +151,20 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			}
 			else
 			{
-				if(isTargetConnected && isModelLoadedOnTarget)
+				if (isTargetConnected && isModelLoadedOnTarget)
 				{
 					if (isTargetRunning)
 					{
 						ToggleButton.Enabled = true;
 						ToggleButton.BackColor = ViewConstants.STOP_SIMULATION_BUTTON_COLOR;
+						ToggleButton.GlowColor = ViewConstants.STOP_SIMULATION_BUTTON_COLOR;
 						ToggleButton.Text = ViewConstants.STOP_SIMULATION_BUTTON_TEXT;
 					}
 					else
 					{
 						ToggleButton.Enabled = true;
 						ToggleButton.BackColor = ViewConstants.START_SIMULATION_BUTTON_COLOR;
+						ToggleButton.GlowColor = ViewConstants.START_SIMULATION_BUTTON_COLOR;
 						ToggleButton.Text = ViewConstants.START_SIMULATION_BUTTON_TEXT;
 					}
 				}
@@ -167,6 +174,21 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 					ToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
 					ToggleButton.Text = ViewConstants.START_SIMULATION_BUTTON_TEXT;
 				}
+			}
+		}
+
+		// Thread-safe handling of the Strip Status Values
+		delegate void StatusStripValueChangedCallback(StatusStrip statusStrip, ToolStripStatusLabel toolStripStatusLabel, string newValue);
+		private void StatusStripValueChanged(StatusStrip statusStrip, ToolStripStatusLabel toolStripStatusLabel, string newValue)
+		{
+			if(statusStrip.InvokeRequired)
+			{
+				StatusStripValueChangedCallback callback = new StatusStripValueChangedCallback(StatusStripValueChanged);
+				this.Invoke(callback, new object[] { statusStrip, toolStripStatusLabel, newValue });
+			}
+			else
+			{
+				toolStripStatusLabel.Text = newValue;
 			}
 		}
 	}

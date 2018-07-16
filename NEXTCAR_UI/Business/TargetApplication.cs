@@ -35,7 +35,18 @@ namespace NEXTCAR_UI.Business
 			}
 		}
 		public double AverageTeT { get { return _averageTeT; }  private set { _averageTeT = value; } }
-		public double MaximumTeT { get { return _maximumTeT; } private set { _maximumTeT = value; } }
+		public double MaximumTeT
+		{
+			get { return _maximumTeT; }
+			private set
+			{
+				if (_maximumTeT != value)
+				{
+					_maximumTeT = value;
+					OnMaximumTeTChanged(value);
+				}
+			}
+		}
 		public bool CpuOverload { get { return _cpuOverload; } private set { _cpuOverload = value; } }
 		public double ExecutionTime { get { return _executionTime; } private set { _executionTime = value; } }
 		public string LoadedModelName
@@ -47,11 +58,24 @@ namespace NEXTCAR_UI.Business
 				OnLoadedModelNameChanged(value);
 			}
 		}
-		public double StopTime { get { return _stopTime; } private set { _stopTime = value; } }
+		public double StopTime
+		{
+			get { return _stopTime; }
+			private set
+			{
+				if(_stopTime != value)
+				{
+					_stopTime = value;
+					OnStopTimeChanged(value);
+				}
+			}
+		}
 		public bool IsModelLoadedOnTarget { get { return _isModelLoadedOnTarget; } private set { _isModelLoadedOnTarget = value; } }
 		public bool IsSimulationRunning { get { return _isSimulationRunning; } private set { _isSimulationRunning = value; } }
 
 		public event EventHandler<ApplicationPropertiesChangedEventArgs> ApplicationPropertiesChanged;
+		public event EventHandler<MaximumTeTChangedEventArgs> MaximumTeTChanged;
+		public event EventHandler<StopTimeChangedEventArgs> StopTimeChanged;
 
 
 		public TargetApplication()
@@ -77,6 +101,7 @@ namespace NEXTCAR_UI.Business
 			{
 				this._xpcApplication = targetConnection.LoadRealTimeModel(realTimeModelFilePath);
 				LoadedModelName = this._xpcApplication.Name;
+				StopTime = this._xpcApplication.StopTime;
 				StartPropertyUpdatesTimer();
 			}
 		}
@@ -110,13 +135,16 @@ namespace NEXTCAR_UI.Business
 		{
 			this._xpcApplication.Start();
 			this.IsSimulationRunning = true;
+			StopTime = this._xpcApplication.StopTime;
+			StartPropertyUpdatesTimer();
 		}
 
 		public void StopSimulation()
 		{
 			this._xpcApplication.Stop();
-			this.IsSimulationRunning = false;
 			MaximumTeT = this._xpcApplication.MaximumTeT[0];
+			this.IsSimulationRunning = false;
+			StopPropertyUpdatesTimer();
 		}
 
 		private void OnIntervalElapsed(Object source, System.Timers.ElapsedEventArgs e)
@@ -126,15 +154,13 @@ namespace NEXTCAR_UI.Business
 			CpuOverload = this._xpcApplication.CPUOverload;
 			ExecutionTime = this._xpcApplication.ExecTime;
 			LoadedModelName = this._xpcApplication.Name;
-			StopTime = this._xpcApplication.StopTime;
-
-			ApplicationPropertiesChangedEventArgs args = new ApplicationPropertiesChangedEventArgs(this._xpcApplication.Status,
-																									this._xpcApplication.AverageTeT,
-																									MaximumTeT,
-																									this._xpcApplication.CPUOverload,
-																									this._xpcApplication.ExecTime,
-																									this._xpcApplication.Name,
-																									this._xpcApplication.StopTime);
+			
+			ApplicationPropertiesChangedEventArgs args = new ApplicationPropertiesChangedEventArgs(
+				this._xpcApplication.Status,
+				this._xpcApplication.AverageTeT,
+				this._xpcApplication.CPUOverload,
+				this._xpcApplication.ExecTime,
+				this._xpcApplication.Name);
 			ApplicationPropertiesChanged?.Invoke(this, args);
 		}
 
@@ -158,6 +184,18 @@ namespace NEXTCAR_UI.Business
 		{
 			if (String.IsNullOrEmpty(loadedModelName)) { IsModelLoadedOnTarget = false; }
 			else { IsModelLoadedOnTarget = true; }
+		}
+
+		private void OnMaximumTeTChanged(double newMaximumTeT)
+		{
+			MaximumTeTChangedEventArgs args = new MaximumTeTChangedEventArgs(newMaximumTeT);
+			MaximumTeTChanged?.Invoke(this, args);
+		}
+
+		private void OnStopTimeChanged(double newStopTime)
+		{
+			StopTimeChangedEventArgs args = new StopTimeChangedEventArgs(StopTime);
+			StopTimeChanged?.Invoke(this, args);
 		}
 	}
 }

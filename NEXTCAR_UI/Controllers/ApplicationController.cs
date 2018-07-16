@@ -39,6 +39,8 @@ namespace NEXTCAR_UI.Controllers
 				new EventHandler<TargetConnectionStateChangedEventArgs>(HandleTargetConnectionStateChanged);
 			this._targetApplication.ApplicationPropertiesChanged += 
 				new EventHandler<ApplicationPropertiesChangedEventArgs>(HandleApplicationPropertiesChanged);
+			this._targetApplication.MaximumTeTChanged += new EventHandler<MaximumTeTChangedEventArgs>(HandleMaximumTeTChanged);
+			this._targetApplication.StopTimeChanged += new EventHandler<StopTimeChangedEventArgs>(HandleStopTimeChanged);
 		}
 
 		private void HandleLoadModelToggleButtonClicked(object sender, MouseEventArgs args)
@@ -89,6 +91,16 @@ namespace NEXTCAR_UI.Controllers
 		private void HandleApplicationPropertiesChanged(object sender, ApplicationPropertiesChangedEventArgs args)
 		{
 			this._mainScreen.UpdateApplicationProperties(args);
+		}
+
+		private void HandleMaximumTeTChanged(object sender, MaximumTeTChangedEventArgs args)
+		{
+			this._mainScreen.UpdateMaximumTeTValue(args.MaximumTeT);
+		}
+
+		private void HandleStopTimeChanged(object sender, StopTimeChangedEventArgs args)
+		{
+			this._mainScreen.UpdateStopTimeValue(args.StopTime);
 		}
 	}
 }
