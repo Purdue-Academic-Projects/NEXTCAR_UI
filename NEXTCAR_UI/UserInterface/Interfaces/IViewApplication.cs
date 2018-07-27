@@ -14,6 +14,7 @@ namespace NEXTCAR_UI.UserInterface.Interfaces
 		event MouseEventHandler LoadModelToggleButtonClicked;
 		event MouseEventHandler RebootTargetPCButtonClicked;
 		event MouseEventHandler StartSimulationToggleButtonClicked;
+		event EventHandler<StopTimeChangedEventArgs> StopTimeTextChanged;
 
 		void ChangeLoadModelToggleButtonState(bool isTargetConnected, bool isRealTimeFileLoadedInTextbox, bool isModelLoadedOnTarget);
 		void UpdateApplicationProperties(ApplicationPropertiesChangedEventArgs applicationProperties);

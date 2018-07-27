@@ -88,13 +88,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\Interfaces\IApplicationProperties.cs" />
-    <Compile Include="Business\Interfaces\IModelProperties.cs" />
-    <Compile Include="Business\Interfaces\ITargetConnection.cs" />
-    <Compile Include="Business\MatlabInterface.cs" />
-    <Compile Include="Business\RealTimeModel.cs" />
-    <Compile Include="Business\TargetApplication.cs" />
-    <Compile Include="Business\TargetCommunication.cs" />
+    <Compile Include="Business\Containers\LoadedApplicationState.cs" />
+    <Compile Include="Business\Models\MatlabInterface.cs" />
+    <Compile Include="Business\Interfaces\ICanControlTargetConnection.cs" />
+    <Compile Include="Business\Interfaces\ICanControlTargetApplication.cs" />
+    <Compile Include="Business\Interfaces\ICanMonitorRealTime.cs" />
+    <Compile Include="Business\Interfaces\IHasLoadedApplicationState.cs" />
+    <Compile Include="Business\Interfaces\IHasModelLocation.cs" />
+    <Compile Include="Business\Interfaces\IHasSimulationState.cs" />
+    <Compile Include="Business\Interfaces\IHasTargetConnection.cs" />
+    <Compile Include="Business\Interfaces\ILoadable.cs" />
+    <Compile Include="Business\Interfaces\IRebootable.cs" />
+    <Compile Include="Business\Models\RealTimeModel.cs" />
+    <Compile Include="Business\Models\RealTimeMonitor.cs" />
+    <Compile Include="Business\Models\SimulationEnvironment.cs" />
+    <Compile Include="Business\Models\TargetCommunication.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\CommunicationController.cs" />
     <Compile Include="Controllers\RealTimeModelController.cs" />

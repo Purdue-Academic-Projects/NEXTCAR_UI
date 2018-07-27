@@ -1,5 +1,6 @@
 ﻿using NEXTCAR_UI.Business.Interfaces;
 using NEXTCAR_UI.DataClasses;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NEXTCAR_UI.Business
+namespace NEXTCAR_UI.Business.Models
 {
-	public class RealTimeModel : IModelProperties
+	public class RealTimeModel : IHasModelLocation
 	{
 		private string _realTimeModelLocation = "C\\";
-		private bool _isRealTimeFileLoadedInTextbox;
+		private bool _isModelLocationLoaded;
 
 		public string RealTimeModelFilePath
 		{
 			get { return _realTimeModelLocation; }
-			set
+			private set
 			{
 				if (_realTimeModelLocation != value)
 				{
@@ -26,13 +27,9 @@ namespace NEXTCAR_UI.Business
 				}
 			}
 		}
-		public bool IsRealTimeFileLoadedInTextbox { get { return _isRealTimeFileLoadedInTextbox; } private set { _isRealTimeFileLoadedInTextbox = value; } }
+		public bool IsModelLocationLoaded { get { return _isModelLocationLoaded; } private set { _isModelLocationLoaded = value; } }
 
-
-		public RealTimeModel()
-		{
-
-		}
+		public event EventHandler RealTimeModelLocationChanged;
 
 		public void BrowseForModel()
 		{
@@ -42,19 +39,17 @@ namespace NEXTCAR_UI.Business
 			openFileDialog.FilterIndex = 2;
 			openFileDialog.RestoreDirectory = true;
 
-			if(openFileDialog.ShowDialog() == DialogResult.OK)
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				if(openFileDialog.FileName != null) { RealTimeModelFilePath = openFileDialog.FileName; }
+				if (openFileDialog.FileName != null) { RealTimeModelFilePath = openFileDialog.FileName; }
 			}
 		}
-
-		public event EventHandler RealTimeModelLocationChanged;
 
 		private void OnRealTimeModelLocationChanged(string newFilePath)
 		{
 			// If a real-time model file was loaded into the textbox, set its corresponding property true
-			if (newFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)) { IsRealTimeFileLoadedInTextbox = true; }
-			else { IsRealTimeFileLoadedInTextbox = false; }
+			if (newFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)) { IsModelLocationLoaded = true; }
+			else { IsModelLocationLoaded = false; }
 
 			EventArgs args = new EventArgs();
 			RealTimeModelLocationChanged?.Invoke(this, args);

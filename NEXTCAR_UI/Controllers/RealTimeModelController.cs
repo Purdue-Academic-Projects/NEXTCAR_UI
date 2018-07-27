@@ -14,52 +14,52 @@ namespace NEXTCAR_UI.Controllers
 	public class RealTimeModelController
 	{
 		private IMainScreen _mainScreen;
-		private ITargetConnection _targetConnection;
-		private IModelProperties _realTimeModel;
-		private IApplicationProperties _targetApplication;
+		private ICanControlTargetConnection _targetConnection;
+		private IHasModelLocation _realTimeModelProperties;
+		private ISimulationState _simulationState;
 
 		public RealTimeModelController(
 			IMainScreen mainScreen,
-			ITargetConnection targetConnection,
-			IModelProperties realTimeModel,
-			IApplicationProperties targetApplication)
+			ICanControlTargetConnection targetConnection,
+			IHasModelLocation realTimeModelProperties,
+			ISimulationState simulationState)
 		{
 			// Register needed models and views
 			this._mainScreen = mainScreen;
 			this._targetConnection = targetConnection;
-			this._realTimeModel = realTimeModel;
-			this._targetApplication = targetApplication;
+			this._realTimeModelProperties = realTimeModelProperties;
+			this._simulationState = simulationState;
 
 			// Subscribe to events
 			this._mainScreen.BrowseForModelFileButtonClicked += new MouseEventHandler(HandleBrowseForModelFileButtonClicked);
 
 			this._targetConnection.TargetConnectionStateChanged += new EventHandler<TargetConnectionStateChangedEventArgs>(HandleTargetConnectionStateChanged);
-			this._realTimeModel.RealTimeModelLocationChanged += new EventHandler(HandleRealTimeModelLocationChanged);
+			this._realTimeModelProperties.RealTimeModelLocationChanged += new EventHandler(HandleRealTimeModelLocationChanged);
 		}
 
 		private void HandleBrowseForModelFileButtonClicked(object sender, MouseEventArgs args)
 		{
-			this._realTimeModel.BrowseForModel();
+			this._realTimeModelProperties.BrowseForModel();
 		}
 
 		private void HandleTargetConnectionStateChanged(object sender, TargetConnectionStateChangedEventArgs args)
 		{
 			this._mainScreen.ChangeLoadModelToggleButtonState(this._targetConnection.IsTargetConnected,
-																this._realTimeModel.IsRealTimeFileLoadedInTextbox,
-																this._targetApplication.IsModelLoadedOnTarget);
+																this._realTimeModelProperties.IsModelLocationLoaded,
+																this._simulationState.IsModelLoadedOnTarget);
 		}
 
 		// FIX ME
 		private void HandleRealTimeModelLocationChanged(object sender, EventArgs args)
 		{
-			this._mainScreen.UpdateRealTimeModelLocationTextBox(this._realTimeModel.RealTimeModelFilePath);
-			if(this._realTimeModel.RealTimeModelFilePath != null)
+			this._mainScreen.UpdateRealTimeModelLocationTextBox(this._realTimeModelProperties.RealTimeModelFilePath);
+			if(this._realTimeModelProperties.RealTimeModelFilePath != null)
 			{
-				if (this._realTimeModel.RealTimeModelFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)==true)
+				if (this._realTimeModelProperties.RealTimeModelFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)==true)
 				{
 					this._mainScreen.ChangeBuildModelButtonState(false);
 				}
-				else if(this._realTimeModel.RealTimeModelFilePath.Contains(ModelConstants.SIMULINK_FILE_EXTENSION)==true)
+				else if(this._realTimeModelProperties.RealTimeModelFilePath.Contains(ModelConstants.SIMULINK_FILE_EXTENSION)==true)
 				{
 					this._mainScreen.ChangeBuildModelButtonState(true);
 				}
@@ -69,8 +69,8 @@ namespace NEXTCAR_UI.Controllers
 				}
 			}
 			this._mainScreen.ChangeLoadModelToggleButtonState(this._targetConnection.IsTargetConnected,
-													this._realTimeModel.IsRealTimeFileLoadedInTextbox,
-													this._targetApplication.IsModelLoadedOnTarget);
+													this._realTimeModelProperties.IsModelLocationLoaded,
+													this._simulationState.IsModelLoadedOnTarget);
 		}
 	}
 }

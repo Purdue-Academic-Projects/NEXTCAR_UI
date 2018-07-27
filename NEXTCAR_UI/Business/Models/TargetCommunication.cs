@@ -1,6 +1,7 @@
 ﻿using MathWorks.xPCTarget.FrameWork;
 using NEXTCAR_UI.Business.Interfaces;
 using NEXTCAR_UI.DataClasses;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NEXTCAR_UI.Business
+namespace NEXTCAR_UI.Business.Models
 {
-	public class TargetCommunication : ITargetConnection
+	public class TargetCommunication : ICanControlTargetConnection
 	{
 		private bool _isTargetConnected = false;
 		private string _targetIPaddress = "192.168.7.1";
@@ -53,13 +54,14 @@ namespace NEXTCAR_UI.Business
 				}
 			}
 		}
+		public xPCTargetPC TargetPC { get { return _targetPC; } private set { _targetPC = value; } }
 
 		public TargetCommunication()
 		{
-			this._targetPC = new xPCTargetPC();
-			this._targetPC.TcpIpTargetAddress = TargetIPaddress;
-			this._targetPC.TcpIpTargetPort = TargetPort;
-			this._targetPC.CommunicationTimeOut = ModelConstants.REBOOT_TIMEOUT_PERIOD;
+			this.TargetPC = new xPCTargetPC();
+			this.TargetPC.TcpIpTargetAddress = TargetIPaddress;
+			this.TargetPC.TcpIpTargetPort = TargetPort;
+			this.TargetPC.CommunicationTimeOut = ModelConstants.REBOOT_TIMEOUT_PERIOD;
 		}
 
 		public void ConnectToTarget()
@@ -93,19 +95,8 @@ namespace NEXTCAR_UI.Business
 
 		public void DisconnectFromTarget()
 		{
-			this._targetPC.Disconnect();
+			this.TargetPC.Disconnect();
 			IsTargetConnected = this._targetPC.IsConnected;
-		}
-
-		public xPCApplication LoadRealTimeModel(string realTimeModelFilePath)
-		{
-			xPCApplication targetApplication = this._targetPC.Load(realTimeModelFilePath);
-			return targetApplication;
-		}
-
-		public void UnloadRealTimeModel()
-		{
-			this._targetPC.Unload();
 		}
 
 		public void RebootTargetPC()

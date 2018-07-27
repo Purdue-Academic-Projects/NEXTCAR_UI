@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace NEXTCAR_UI.Business.Interfaces
 {
-	public interface IModelProperties
+	public interface IHasModelLocation
 	{
-		string RealTimeModelFilePath { get; set; }
-		bool IsRealTimeFileLoadedInTextbox { get; }
+		string RealTimeModelFilePath { get; }
+		bool IsModelLocationLoaded { get; }
 
 		void BrowseForModel();
 

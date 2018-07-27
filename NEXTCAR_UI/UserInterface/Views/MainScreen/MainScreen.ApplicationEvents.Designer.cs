@@ -18,10 +18,23 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		public event MouseEventHandler LoadModelToggleButtonClicked;
 		public event MouseEventHandler RebootTargetPCButtonClicked;
 		public event MouseEventHandler StartSimulationToggleButtonClicked;
+		public event EventHandler<StopTimeChangedEventArgs> StopTimeTextChanged;
 
 		private void OnLoadModelToggleButtonClicked(object sender, MouseEventArgs e) { LoadModelToggleButtonClicked?.Invoke(sender, e); }
 		private void OnRebootTargetPCButtonClicked(object sender, MouseEventArgs e) { RebootTargetPCButtonClicked?.Invoke(sender, e); }
 		private void OnStartSimulationToggleButtonClicked(object sender, MouseEventArgs e) { StartSimulationToggleButtonClicked?.Invoke(sender, e); }
+		private void OnStopTimeTextChanged(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				try
+				{
+					StopTimeChangedEventArgs args = new StopTimeChangedEventArgs(Convert.ToDouble(this.StopTimeRichTextBox.Text));
+					StopTimeTextChanged?.Invoke(sender, args);
+				}
+				catch { }
+			}
+		}
 
 		public void ChangeLoadModelToggleButtonState(bool isTargetConnected, bool isRealTimeFileLoadedInTextbox, bool isModelLoadedOnTarget)
 		{
@@ -30,13 +43,13 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 
 		public void UpdateApplicationProperties(ApplicationPropertiesChangedEventArgs applicationProperties)
 		{
-			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.TargetStatusToolStripStatus, applicationProperties.TargetStatus.ToString());
-			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.AverageTetToolStripStatus, applicationProperties.AverageTeT.ToString("#.######"));
-			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.CpuOverloadedToolStripStatus, applicationProperties.CpuOverload.ToString());
-			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.ExecutionTimeToolStripStatus, applicationProperties.ExecutionTime.ToString("#.#"));
-			RichTextBoxTextChange(this.LoadedModelRichTextBox, applicationProperties.LoadedModelName.ToString());
+			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.TargetStatusToolStripStatus, applicationProperties.LoadedApplicationProperties.TargetStatus.ToString());
+			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.AverageTetToolStripStatus, applicationProperties.LoadedApplicationProperties.AverageTeT.ToString("#.######"));
+			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.CpuOverloadedToolStripStatus, applicationProperties.LoadedApplicationProperties.CpuOverload.ToString());
+			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.ExecutionTimeToolStripStatus, applicationProperties.LoadedApplicationProperties.ExecutionTime.ToString("#.#"));
+			RichTextBoxTextChange(this.LoadedModelRichTextBox, applicationProperties.LoadedApplicationProperties.LoadedModelName.ToString());
 
-			UpdateToolStripStatusColor(applicationProperties.TargetStatus, applicationProperties.CpuOverload);
+			UpdateToolStripStatusColor(applicationProperties.LoadedApplicationProperties.TargetStatus, applicationProperties.LoadedApplicationProperties.CpuOverload);
 		}
 
 		public void UpdateMaximumTeTValue(double maximumTeT)
@@ -46,7 +59,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 
 		public void UpdateStopTimeValue(double stopTime)
 		{
-			RichTextBoxTextChange(this.StopTimeLabelRichTextBox, stopTime.ToString("#.#"));
+			RichTextBoxTextChange(this.StopTimeRichTextBox, stopTime.ToString("#.#"));
 		}
 
 		public void ChangeRebootButtonState(bool isTargetConnected)

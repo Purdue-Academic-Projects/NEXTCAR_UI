@@ -13,11 +13,11 @@ namespace NEXTCAR_UI.Controllers
 	public class CommunicationController
 	{
 		private IMainScreen _mainScreen;
-		private ITargetConnection _targetConnection;
+		private ICanControlTargetConnection _targetConnection;
 
 		public CommunicationController(
 			IMainScreen mainScreen,
-			ITargetConnection targetConnection)
+			ICanControlTargetConnection targetConnection)
 		{
 			// Register needed models and views
 			this._mainScreen = mainScreen;

@@ -47,7 +47,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.DataLoggingGroupBox = new System.Windows.Forms.GroupBox();
 			this.RebootTargetPCButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
 			this.StartSimulationToggleButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
-			this.StopTimeLabelRichTextBox = new System.Windows.Forms.RichTextBox();
+			this.StopTimeRichTextBox = new System.Windows.Forms.RichTextBox();
 			this.StopTimeLabel = new System.Windows.Forms.Label();
 			this.LoadedModelRichTextBox = new System.Windows.Forms.RichTextBox();
 			this.LoadedModelLabel = new System.Windows.Forms.Label();
@@ -228,7 +228,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.DataLoggingGroupBox.BackColor = System.Drawing.Color.Transparent;
 			this.DataLoggingGroupBox.Controls.Add(this.RebootTargetPCButton);
 			this.DataLoggingGroupBox.Controls.Add(this.StartSimulationToggleButton);
-			this.DataLoggingGroupBox.Controls.Add(this.StopTimeLabelRichTextBox);
+			this.DataLoggingGroupBox.Controls.Add(this.StopTimeRichTextBox);
 			this.DataLoggingGroupBox.Controls.Add(this.StopTimeLabel);
 			this.DataLoggingGroupBox.Controls.Add(this.LoadedModelRichTextBox);
 			this.DataLoggingGroupBox.Controls.Add(this.LoadedModelLabel);
@@ -273,16 +273,16 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.StartSimulationToggleButton.TabIndex = 3;
 			this.StartSimulationToggleButton.Text = "START SIMULATION";
 			// 
-			// StopTimeLabelRichTextBox
+			// StopTimeRichTextBox
 			// 
-			this.StopTimeLabelRichTextBox.BackColor = System.Drawing.Color.White;
-			this.StopTimeLabelRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.StopTimeLabelRichTextBox.Location = new System.Drawing.Point(103, 41);
-			this.StopTimeLabelRichTextBox.Multiline = false;
-			this.StopTimeLabelRichTextBox.Name = "StopTimeLabelRichTextBox";
-			this.StopTimeLabelRichTextBox.Size = new System.Drawing.Size(91, 23);
-			this.StopTimeLabelRichTextBox.TabIndex = 15;
-			this.StopTimeLabelRichTextBox.Text = "";
+			this.StopTimeRichTextBox.BackColor = System.Drawing.Color.White;
+			this.StopTimeRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StopTimeRichTextBox.Location = new System.Drawing.Point(103, 41);
+			this.StopTimeRichTextBox.Multiline = false;
+			this.StopTimeRichTextBox.Name = "StopTimeRichTextBox";
+			this.StopTimeRichTextBox.Size = new System.Drawing.Size(91, 23);
+			this.StopTimeRichTextBox.TabIndex = 15;
+			this.StopTimeRichTextBox.Text = "";
 			// 
 			// StopTimeLabel
 			// 
@@ -449,7 +449,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		private RichTextBox RealTimeModelFileLocationRichTextBox;
 		private GroupBox DataLoggingGroupBox;
 		private ToggleButton StartSimulationToggleButton;
-		private RichTextBox StopTimeLabelRichTextBox;
+		private RichTextBox StopTimeRichTextBox;
 		private Label StopTimeLabel;
 		private RichTextBox LoadedModelRichTextBox;
 		private Label LoadedModelLabel;

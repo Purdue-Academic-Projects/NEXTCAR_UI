@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using NEXTCAR_UI.Business;
+using NEXTCAR_UI.Business.Models;
 using NEXTCAR_UI.Controllers;
 using NEXTCAR_UI.UserInterface.Views.MainScreen;
 
@@ -22,13 +23,14 @@ namespace NEXTCAR_UI
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			MainScreen mainScreen = new MainScreen();
-			TargetCommunication targetCommunication = new TargetCommunication();
-			RealTimeModel realTimeModel = new RealTimeModel();
-			TargetApplication targetApplication = new TargetApplication();
+			TargetCommunication targetConnection = new TargetCommunication();
+			RealTimeModel realTimeModelProperties = new RealTimeModel();
+			RealTimeMonitor realTimeMonitor = new RealTimeMonitor();
+			SimulationEnvironment simulationState = new SimulationEnvironment();
 
-			CommunicationController communicationController = new CommunicationController(mainScreen, targetCommunication);
-			RealTimeModelController realTimeModelController = new RealTimeModelController(mainScreen, targetCommunication, realTimeModel, targetApplication);
-			ApplicationController applicationController = new ApplicationController(mainScreen, targetCommunication, realTimeModel, targetApplication);
+			CommunicationController communicationController = new CommunicationController(mainScreen, targetConnection);
+			RealTimeModelController realTimeModelController = new RealTimeModelController(mainScreen, targetConnection, realTimeModelProperties, simulationState);
+			ApplicationController applicationController = new ApplicationController(mainScreen, targetConnection, realTimeModelProperties, realTimeMonitor, simulationState);
 
 			Application.Run(mainScreen);
 		}

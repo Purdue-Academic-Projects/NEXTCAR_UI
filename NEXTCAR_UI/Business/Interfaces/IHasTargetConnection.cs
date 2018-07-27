@@ -1,4 +1,5 @@
 ﻿using MathWorks.xPCTarget.FrameWork;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,12 @@ using System.Threading.Tasks;
 
 namespace NEXTCAR_UI.Business.Interfaces
 {
-	public interface ITargetConnection
+	public interface IHasTargetConnection
 	{
 		bool IsTargetConnected { get; set; }
 		string TargetIPaddress { get; set; }
 		string TargetPort { get; set; }
-
-		void ConnectToTarget();
-		void DisconnectFromTarget();
-		xPCApplication LoadRealTimeModel(string realTimeModelFilePath);
-		void UnloadRealTimeModel();
-		void RebootTargetPC();
+		xPCTargetPC TargetPC { get; }
 
 		event EventHandler<TargetConnectionStateChangedEventArgs> TargetConnectionStateChanged;
 	}

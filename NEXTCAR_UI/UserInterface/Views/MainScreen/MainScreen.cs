@@ -35,7 +35,9 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			RealTimeModelFileLocationRichTextBox.TextChanged += new EventHandler(OnModelFileLocationTextChanged);
 
 			LoadedModelRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
-			StopTimeLabelRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
+
+			StopTimeRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
+			StopTimeRichTextBox.KeyDown += new KeyEventHandler(OnStopTimeTextChanged);
 		}
 
 		public void InitializeButtons()
