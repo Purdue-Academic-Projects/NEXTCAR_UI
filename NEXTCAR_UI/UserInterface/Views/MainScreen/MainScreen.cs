@@ -1,4 +1,5 @@
-﻿using NEXTCAR_UI.DataClasses;
+﻿using NEXTCAR_UI.Business;
+using NEXTCAR_UI.DataClasses;
 using NEXTCAR_UI.UserInterface.Interfaces;
 
 using System;
@@ -17,6 +18,9 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 	{
 		public MainScreen()
 		{
+			MatlabInterface test = new MatlabInterface();
+			test.test();
+
 			InitializeComponent();
 			InitializeRichTextBoxes();
 			InitializeButtons();
@@ -37,7 +41,10 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			LoadedModelRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
 
 			StopTimeRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
-			StopTimeRichTextBox.KeyDown += new KeyEventHandler(OnStopTimeTextChanged);
+			StopTimeRichTextBox.KeyDown += new KeyEventHandler(OnUserEnteredStopTime);
+
+			LoggingTimeRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
+			LoggingTimeRichTextBox.KeyDown += new KeyEventHandler(OnUserEnteredLoggingTime);
 		}
 
 		public void InitializeButtons()

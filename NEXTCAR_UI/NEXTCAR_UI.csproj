@@ -103,6 +103,7 @@
     <Compile Include="Business\Models\RealTimeMonitor.cs" />
     <Compile Include="Business\Models\SimulationEnvironment.cs" />
     <Compile Include="Business\Models\TargetCommunication.cs" />
+    <Compile Include="Business\Models\TargetFileSystem.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\CommunicationController.cs" />
     <Compile Include="Controllers\RealTimeModelController.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="UserInterface\ViewObjects\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserInterface\Views\MainScreen\MainScreen.LoggingEvents.Designer.cs" />
     <Compile Include="UserInterface\Views\MainScreen\MainScreen.ThreadSafe.Designer.cs">
       <SubType>Form</SubType>
     </Compile>

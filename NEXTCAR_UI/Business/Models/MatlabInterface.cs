@@ -8,7 +8,10 @@ namespace NEXTCAR_UI.Business
 {
 	public class MatlabInterface
 	{
-		//MLApp.MLApp matlab = new MLApp.MLApp();
-		//string test = matlab.Execute("1+1");
+		public void test()
+		{
+			MLApp.MLApp matlab = new MLApp.MLApp();
+			string test = matlab.Execute("1+1");
+		}
 	}
 }

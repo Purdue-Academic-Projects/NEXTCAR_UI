@@ -61,10 +61,16 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.MaximumTetToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.CpuOverloadedToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.CpuOverloadedToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.LoggingTimeProgressBar = new System.Windows.Forms.ProgressBar();
+			this.StartLoggingToggleButton = new NEXTCAR_UI.UserInterface.ViewObjects.ToggleButton();
+			this.LoggingTimeRichTextBox = new System.Windows.Forms.RichTextBox();
+			this.LoggingTimeLabel = new System.Windows.Forms.Label();
 			this.ConnectionStatusGroupBox.SuspendLayout();
 			this.RealTimeModelGroupBox.SuspendLayout();
 			this.DataLoggingGroupBox.SuspendLayout();
 			this.TargetApplicationStatusStrip.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// ConnectionStatusGroupBox
@@ -406,6 +412,71 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.CpuOverloadedToolStripStatus.Size = new System.Drawing.Size(33, 17);
 			this.CpuOverloadedToolStripStatus.Text = "False";
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.LoggingTimeProgressBar);
+			this.groupBox1.Controls.Add(this.StartLoggingToggleButton);
+			this.groupBox1.Controls.Add(this.LoggingTimeRichTextBox);
+			this.groupBox1.Controls.Add(this.LoggingTimeLabel);
+			this.groupBox1.Cursor = System.Windows.Forms.Cursors.Default;
+			this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+			this.groupBox1.Location = new System.Drawing.Point(230, 12);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(200, 97);
+			this.groupBox1.TabIndex = 4;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "DATA LOGGING";
+			// 
+			// LoggingTimeProgressBar
+			// 
+			this.LoggingTimeProgressBar.Location = new System.Drawing.Point(6, 43);
+			this.LoggingTimeProgressBar.Name = "LoggingTimeProgressBar";
+			this.LoggingTimeProgressBar.Size = new System.Drawing.Size(188, 10);
+			this.LoggingTimeProgressBar.TabIndex = 5;
+			this.LoggingTimeProgressBar.Value = 25;
+			// 
+			// StartLoggingToggleButton
+			// 
+			this.StartLoggingToggleButton.BackColor = System.Drawing.Color.Lime;
+			this.StartLoggingToggleButton.CornerRadius = 1;
+			this.StartLoggingToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StartLoggingToggleButton.ForeColor = System.Drawing.Color.Black;
+			this.StartLoggingToggleButton.GlowColor = System.Drawing.Color.Lime;
+			this.StartLoggingToggleButton.Location = new System.Drawing.Point(6, 53);
+			this.StartLoggingToggleButton.Name = "StartLoggingToggleButton";
+			this.StartLoggingToggleButton.PrimaryColor = System.Drawing.Color.Lime;
+			this.StartLoggingToggleButton.SecondaryColor = System.Drawing.Color.Red;
+			this.StartLoggingToggleButton.Size = new System.Drawing.Size(188, 36);
+			this.StartLoggingToggleButton.TabIndex = 18;
+			this.StartLoggingToggleButton.Text = "START LOGGING";
+			// 
+			// LoggingTimeRichTextBox
+			// 
+			this.LoggingTimeRichTextBox.BackColor = System.Drawing.Color.White;
+			this.LoggingTimeRichTextBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LoggingTimeRichTextBox.Location = new System.Drawing.Point(103, 20);
+			this.LoggingTimeRichTextBox.Multiline = false;
+			this.LoggingTimeRichTextBox.Name = "LoggingTimeRichTextBox";
+			this.LoggingTimeRichTextBox.Size = new System.Drawing.Size(91, 23);
+			this.LoggingTimeRichTextBox.TabIndex = 17;
+			this.LoggingTimeRichTextBox.Text = "";
+			// 
+			// LoggingTimeLabel
+			// 
+			this.LoggingTimeLabel.BackColor = System.Drawing.Color.Black;
+			this.LoggingTimeLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.LoggingTimeLabel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LoggingTimeLabel.ForeColor = System.Drawing.Color.White;
+			this.LoggingTimeLabel.Location = new System.Drawing.Point(6, 20);
+			this.LoggingTimeLabel.Name = "LoggingTimeLabel";
+			this.LoggingTimeLabel.Size = new System.Drawing.Size(96, 23);
+			this.LoggingTimeLabel.TabIndex = 16;
+			this.LoggingTimeLabel.Text = "Logging Time";
+			this.LoggingTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// MainScreen
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -414,6 +485,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.BackgroundImage = global::NEXTCAR_UI.Properties.Resources.PurdueLogo;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.ClientSize = new System.Drawing.Size(800, 426);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.TargetApplicationStatusStrip);
 			this.Controls.Add(this.DataLoggingGroupBox);
 			this.Controls.Add(this.RealTimeModelGroupBox);
@@ -423,12 +495,13 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainScreen";
 			this.Opacity = 0.95D;
-			this.Text = "NEXTCAR User Interface";
+			this.Text = "NEXTCAR UI";
 			this.ConnectionStatusGroupBox.ResumeLayout(false);
 			this.RealTimeModelGroupBox.ResumeLayout(false);
 			this.DataLoggingGroupBox.ResumeLayout(false);
 			this.TargetApplicationStatusStrip.ResumeLayout(false);
 			this.TargetApplicationStatusStrip.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -464,6 +537,11 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		private ToolStripStatusLabel MaximumTetToolStripStatus;
 		private ToolStripStatusLabel CpuOverloadedToolStripStatusLabel;
 		private ToolStripStatusLabel CpuOverloadedToolStripStatus;
+		private GroupBox groupBox1;
+		private RichTextBox LoggingTimeRichTextBox;
+		private Label LoggingTimeLabel;
+		private ProgressBar LoggingTimeProgressBar;
+		private ToggleButton StartLoggingToggleButton;
 	}
 }
 
