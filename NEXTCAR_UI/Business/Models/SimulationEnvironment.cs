@@ -68,7 +68,7 @@ namespace NEXTCAR_UI.Business.Models
 			try { targetConnection.TargetPC.Unload(); }
 			catch { }
 
-			this.LoadedApplication = null;
+			LoadedApplication = null;
 			IsModelLoadedOnTarget = false;
 			IsSimulationRunning = false;
 		}
@@ -80,6 +80,7 @@ namespace NEXTCAR_UI.Business.Models
 			{
 				this.IsSimulationRunning = true;
 				this.StopTime = this.LoadedApplication.StopTime;
+				this.MaximumTeT = 0;
 			}
 			else
 			{

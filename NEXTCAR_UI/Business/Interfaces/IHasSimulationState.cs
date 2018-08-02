@@ -25,22 +25,22 @@ namespace NEXTCAR_UI.Business.Interfaces
 	public class MaximumTeTChangedEventArgs : EventArgs
 	{
 		private double _maximumTeT;
-		public double MaximumTeT { get { return _maximumTeT; } }
+		public double MaximumTeT { get { return _maximumTeT; } private set { _maximumTeT = value; } }
 
 		public MaximumTeTChangedEventArgs(double maximumTeT)
 		{
-			_maximumTeT = maximumTeT;
+			MaximumTeT = maximumTeT;
 		}
 	}
 
 	public class StopTimeChangedEventArgs : EventArgs
 	{
 		private double _stopTime;
-		public double StopTime { get { return _stopTime; } }
+		public double StopTime { get { return _stopTime; } private set { _stopTime = value; } }
 
 		public StopTimeChangedEventArgs(double stopTime)
 		{
-			_stopTime = stopTime;
+			StopTime = stopTime;
 		}
 	}
 }

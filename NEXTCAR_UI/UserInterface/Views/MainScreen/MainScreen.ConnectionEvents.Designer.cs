@@ -20,9 +20,15 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		private void OnIPaddressTextChanged(object sender, EventArgs e) { IPaddressTextChanged?.Invoke(sender, e); }
 		private void OnPortTextChanged(object sender, EventArgs e) { PortTextChanged?.Invoke(sender, e); }
 
-		public void ChangeConnectionToggleButtonState(bool isTargetConnected)
+		public void ChangeConnectToggleButtonState(bool isToggleButtonInDefaultState)
 		{
-			ConnectionToggleStateChange(this.ConnectToggleButton, isTargetConnected);
+			ToggleButtonStateChange(this.ConnectToggleButton, isToggleButtonInDefaultState);
+		}
+
+		public void ChangeConnectionProperties(bool isRichTextBoxActive)
+		{
+			RichTextBoxStateChange(this.IPaddressRichTextBox, isRichTextBoxActive);
+			RichTextBoxStateChange(this.PortRichTextBox, isRichTextBoxActive);
 		}
 	}
 }

@@ -27,10 +27,13 @@ namespace NEXTCAR_UI
 			RealTimeModel realTimeModelProperties = new RealTimeModel();
 			RealTimeMonitor realTimeMonitor = new RealTimeMonitor();
 			SimulationEnvironment simulationState = new SimulationEnvironment();
+			TargetFileSystem targetFileSystem = new TargetFileSystem();
+			RealTimeLogging realTimeLogger = new RealTimeLogging();
 
 			CommunicationController communicationController = new CommunicationController(mainScreen, targetConnection);
 			RealTimeModelController realTimeModelController = new RealTimeModelController(mainScreen, targetConnection, realTimeModelProperties, simulationState);
 			ApplicationController applicationController = new ApplicationController(mainScreen, targetConnection, realTimeModelProperties, realTimeMonitor, simulationState);
+			FileSystemController fileSystemController = new FileSystemController(mainScreen, targetConnection,targetFileSystem, realTimeLogger, simulationState);
 
 			Application.Run(mainScreen);
 		}

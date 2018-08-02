@@ -13,5 +13,8 @@ namespace NEXTCAR_UI.DataClasses
 
 		public static readonly int APPLICATION_PROPERTY_UPDATE_INTERVAL = 100;
 		public static readonly int REBOOT_TIMEOUT_PERIOD = 10000;
+
+		public static readonly int INFINITE_STOP_TIME = -1;
+		public static readonly int DEFAULT_LOGGING_TIME = -1;
 	}
 }

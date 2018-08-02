@@ -23,14 +23,14 @@ namespace NEXTCAR_UI.Business.Interfaces
 		private bool _isTargetConnected;
 		private string _targetIPaddress;
 		private string _targetPort;
-		public bool IsTargetConnected { get { return _isTargetConnected; } }
-		public string TargetIPaddress { get { return _targetIPaddress; } }
-		public string TargetPort { get { return _targetPort; } }
+		public bool IsTargetConnected { get { return _isTargetConnected; } private set { _isTargetConnected = value; } }
+		public string TargetIPaddress { get { return _targetIPaddress; } private set { _targetIPaddress = value; } }
+		public string TargetPort { get { return _targetPort; } private set { _targetPort = value; } }
 		public TargetConnectionStateChangedEventArgs(bool isTargetConnected, string targetIPaddress, string targetPort)
 		{
-			_isTargetConnected = isTargetConnected;
-			_targetIPaddress = targetIPaddress;
-			_targetPort = targetPort;
+			IsTargetConnected = isTargetConnected;
+			TargetIPaddress = targetIPaddress;
+			TargetPort = targetPort;
 		}
 	}
 }

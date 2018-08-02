@@ -16,11 +16,13 @@ namespace NEXTCAR_UI.UserInterface.Interfaces
 		event MouseEventHandler StartSimulationToggleButtonClicked;
 		event EventHandler<StopTimeChangedEventArgs> StopTimeTextChanged;
 
-		void ChangeLoadModelToggleButtonState(bool isTargetConnected, bool isRealTimeFileLoadedInTextbox, bool isModelLoadedOnTarget);
+		void ChangeLoadApplicationToggleButtonState(bool isToggleButtonInDefaultState, bool isToggleButtonEnabled);
+		void ChangeSimulationStartToggleButtonState(bool isToggleButtonInDefaultState, bool isToggleButtonEnabled);
+		void ChangeRebootButtonState(bool isButtonEnabled);
+		void ChangeLoadedModelRichTextBoxState(bool isRichTextBoxActive, bool clearTextOnDisable);
+		void ChangeStopTimeRichTextBoxState(bool isRichTextBoxActive, bool clearTextOnDisable);
 		void UpdateApplicationProperties(ApplicationPropertiesChangedEventArgs applicationProperties);
 		void UpdateMaximumTeTValue(double maximumTeT);
 		void UpdateStopTimeValue(double stopTime);
-		void ChangeRebootButtonState(bool isTargetConnected);
-		void ChangeSimulationStartToggleButtonState(bool isTargetConnected, bool isModelLoadedOnTarget, bool isTargetRunning);
 	}
 }

@@ -15,6 +15,9 @@ namespace NEXTCAR_UI.DataClasses
 		public static readonly Color LOAD_MODEL_BUTTON_COLOR = Color.Lime;
 		public static readonly Color UNLOAD_MODEL_BUTTON_COLOR = Color.Red;
 
+		public static readonly Color START_LOGGING_BUTTON_COLOR = Color.Lime;
+		public static readonly Color STOP_LOGGING_BUTTON_COLOR = Color.Red;
+
 		public static readonly Color START_SIMULATION_BUTTON_COLOR = Color.Lime;
 		public static readonly Color STOP_SIMULATION_BUTTON_COLOR = Color.Red;
 
@@ -25,6 +28,9 @@ namespace NEXTCAR_UI.DataClasses
 		public static readonly Color SIMULATION_STOPPED_COLOR = SystemColors.ControlDarkDark;
 		public static readonly Color SIMULATION_RUNNING_COLOR = Color.Lime;
 
+		public static readonly Color RICHTEXTBOX_ENABLED_COLOR = SystemColors.Window;
+		public static readonly Color RICHTEXTBOX_DISABLED_COLOR = SystemColors.InactiveCaption;
+
 		public static readonly string CONNECT_BUTTON_TEXT = "CONNECT";
 		public static readonly string DISCONNECT_BUTTON_TEXT = "DISCONNECT";
 
@@ -33,5 +39,8 @@ namespace NEXTCAR_UI.DataClasses
 
 		public static readonly string START_SIMULATION_BUTTON_TEXT = "START SIMULATION";
 		public static readonly string STOP_SIMULATION_BUTTON_TEXT = "STOP SIMULATION";
+
+		public static readonly string START_LOGGING_DATA_TEXT = "START LOGGING";
+		public static readonly string STOP_LOGGING_DATA_TEXT = "STOP LOGGING";
 	}
 }

@@ -20,11 +20,11 @@ namespace NEXTCAR_UI.Business.Interfaces
 	public class ApplicationPropertiesChangedEventArgs : EventArgs
 	{
 		private IHasLoadedApplicationState _loadedApplicationProperties;
-		public IHasLoadedApplicationState LoadedApplicationProperties { get { return _loadedApplicationProperties; } }
+		public IHasLoadedApplicationState LoadedApplicationProperties { get { return _loadedApplicationProperties; } private set { _loadedApplicationProperties = value; } }
 
 		public ApplicationPropertiesChangedEventArgs(IHasLoadedApplicationState loadedApplicationProperties)
 		{
-			_loadedApplicationProperties = loadedApplicationProperties;
+			LoadedApplicationProperties = loadedApplicationProperties;
 		}
 	}
 }

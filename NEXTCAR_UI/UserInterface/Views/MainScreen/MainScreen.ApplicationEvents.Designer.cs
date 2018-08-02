@@ -25,20 +25,54 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		private void OnStartSimulationToggleButtonClicked(object sender, MouseEventArgs e) { StartSimulationToggleButtonClicked?.Invoke(sender, e); }
 		private void OnUserEnteredStopTime(object sender, KeyEventArgs e)
 		{
+			double stopTime = -1;
 			if (e.KeyCode == Keys.Enter)
 			{
 				try
 				{
-					StopTimeChangedEventArgs args = new StopTimeChangedEventArgs(Convert.ToDouble(this.StopTimeRichTextBox.Text));
-					StopTimeTextChanged?.Invoke(sender, args);
+					stopTime = Convert.ToDouble(this.StopTimeRichTextBox.Text);
+					if (stopTime <= 0) { throw new Exception(); }
 				}
-				catch { }
+				catch
+				{
+					this.StopTimeRichTextBox.Text = "";
+					stopTime = -1;
+					System.Windows.Forms.MessageBox.Show("Stop Time entered was invalid!", "Invalid Log Time Entered", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				finally
+				{
+					if (stopTime != -1)
+					{
+						StopTimeChangedEventArgs args = new StopTimeChangedEventArgs(stopTime);
+						StopTimeTextChanged?.Invoke(sender, args);
+					}
+				}
 			}
 		}
 
-		public void ChangeLoadModelToggleButtonState(bool isTargetConnected, bool isRealTimeFileLoadedInTextbox, bool isModelLoadedOnTarget)
+		public void ChangeLoadApplicationToggleButtonState(bool isToggleButtonInDefaultState, bool isToggleButtonEnabled)
 		{
-			LoadApplicationToggleButtonChange(this.LoadModelToggleButton, isTargetConnected, isRealTimeFileLoadedInTextbox, isModelLoadedOnTarget);
+			ToggleButtonStateChange(this.LoadModelToggleButton, isToggleButtonInDefaultState, isToggleButtonEnabled);
+		}
+
+		public void ChangeSimulationStartToggleButtonState(bool isToggleButtonInDefaultState, bool isToggleButtonEnabled)
+		{
+			ToggleButtonStateChange(this.StartSimulationToggleButton, isToggleButtonInDefaultState, isToggleButtonEnabled);;
+		}
+
+		public void ChangeRebootButtonState(bool isButtonEnabled)
+		{
+			ButtonStateChange(this.RebootTargetPCButton, isButtonEnabled);
+		}
+
+		public void ChangeLoadedModelRichTextBoxState(bool isRichTextBoxActive, bool clearTextOnDisable)
+		{
+			RichTextBoxStateChange(this.LoadedModelRichTextBox, isRichTextBoxActive, clearTextOnDisable);
+		}
+
+		public void ChangeStopTimeRichTextBoxState(bool isRichTextBoxActive, bool clearTextOnDisable)
+		{
+			RichTextBoxStateChange(this.StopTimeRichTextBox, isRichTextBoxActive, clearTextOnDisable);
 		}
 
 		public void UpdateApplicationProperties(ApplicationPropertiesChangedEventArgs applicationProperties)
@@ -47,7 +81,8 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.AverageTetToolStripStatus, applicationProperties.LoadedApplicationProperties.AverageTeT.ToString("#.######"));
 			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.CpuOverloadedToolStripStatus, applicationProperties.LoadedApplicationProperties.CpuOverload.ToString());
 			StatusStripValueChanged(this.TargetApplicationStatusStrip, this.ExecutionTimeToolStripStatus, applicationProperties.LoadedApplicationProperties.ExecutionTime.ToString("#.#"));
-			RichTextBoxTextChange(this.LoadedModelRichTextBox, applicationProperties.LoadedApplicationProperties.LoadedModelName.ToString());
+
+			RichTextBoxStateChange(this.LoadedModelRichTextBox, this.LoadedModelRichTextBox.Enabled, false, applicationProperties.LoadedApplicationProperties.LoadedModelName.ToString());
 
 			UpdateToolStripStatusColor(applicationProperties.LoadedApplicationProperties.TargetStatus, applicationProperties.LoadedApplicationProperties.CpuOverload);
 		}
@@ -59,17 +94,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 
 		public void UpdateStopTimeValue(double stopTime)
 		{
-			RichTextBoxTextChange(this.StopTimeRichTextBox, stopTime.ToString("#.#"));
-		}
-
-		public void ChangeRebootButtonState(bool isTargetConnected)
-		{
-			TargetRebootButtonChange(this.RebootTargetPCButton, isTargetConnected);
-		}
-
-		public void ChangeSimulationStartToggleButtonState(bool isTargetConnected, bool isModelLoadedOnTarget, bool isTargetRunning)
-		{
-			StartSimulationToggleButtonChange(this.StartSimulationToggleButton, isTargetConnected, isModelLoadedOnTarget, isTargetRunning);
+			RichTextBoxStateChange(this.StopTimeRichTextBox, this.StopTimeRichTextBox.Enabled, false, stopTime.ToString("#.#"));
 		}
 
 		private void UpdateToolStripStatusColor(xPCAppStatus targetStatus, bool isCpuOverloaded)

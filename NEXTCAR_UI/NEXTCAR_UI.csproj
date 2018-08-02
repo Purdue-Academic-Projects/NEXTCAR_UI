@@ -89,6 +89,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\Containers\LoadedApplicationState.cs" />
+    <Compile Include="Business\Interfaces\ICanControlTargetFileSystem.cs" />
+    <Compile Include="Business\Interfaces\ICanLogData.cs" />
     <Compile Include="Business\Models\MatlabInterface.cs" />
     <Compile Include="Business\Interfaces\ICanControlTargetConnection.cs" />
     <Compile Include="Business\Interfaces\ICanControlTargetApplication.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Business\Interfaces\IHasTargetConnection.cs" />
     <Compile Include="Business\Interfaces\ILoadable.cs" />
     <Compile Include="Business\Interfaces\IRebootable.cs" />
+    <Compile Include="Business\Models\RealTimeLogging.cs" />
     <Compile Include="Business\Models\RealTimeModel.cs" />
     <Compile Include="Business\Models\RealTimeMonitor.cs" />
     <Compile Include="Business\Models\SimulationEnvironment.cs" />
@@ -106,11 +109,13 @@
     <Compile Include="Business\Models\TargetFileSystem.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\CommunicationController.cs" />
+    <Compile Include="Controllers\FileSystemController.cs" />
     <Compile Include="Controllers\RealTimeModelController.cs" />
     <Compile Include="DataClasses\ModelConstants.cs" />
     <Compile Include="DataClasses\ViewConstants.cs" />
     <Compile Include="UserInterface\Interfaces\IMainScreen.cs" />
     <Compile Include="UserInterface\Interfaces\IViewApplication.cs" />
+    <Compile Include="UserInterface\Interfaces\IViewLogging.cs" />
     <Compile Include="UserInterface\Interfaces\IViewTargetConnection.cs" />
     <Compile Include="UserInterface\Interfaces\IViewRealTimeModel.cs" />
     <Compile Include="UserInterface\Views\MainScreen\MainScreen.cs">

@@ -18,12 +18,11 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 	{
 		public MainScreen()
 		{
-			MatlabInterface test = new MatlabInterface();
-			test.test();
-
 			InitializeComponent();
 			InitializeRichTextBoxes();
 			InitializeButtons();
+			InitializeCheckBoxes();
+			InitializeProgressBar();
 		}
 
 		public void InitializeRichTextBoxes()
@@ -39,12 +38,18 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			RealTimeModelFileLocationRichTextBox.TextChanged += new EventHandler(OnModelFileLocationTextChanged);
 
 			LoadedModelRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
+			LoadedModelRichTextBox.BackColor = ViewConstants.RICHTEXTBOX_DISABLED_COLOR;
+			LoadedModelRichTextBox.ReadOnly = true;
 
 			StopTimeRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
+			StopTimeRichTextBox.BackColor = ViewConstants.RICHTEXTBOX_DISABLED_COLOR;
+			StopTimeRichTextBox.ReadOnly = true;
 			StopTimeRichTextBox.KeyDown += new KeyEventHandler(OnUserEnteredStopTime);
 
 			LoggingTimeRichTextBox.SelectionAlignment = HorizontalAlignment.Center;
 			LoggingTimeRichTextBox.KeyDown += new KeyEventHandler(OnUserEnteredLoggingTime);
+			LoggingTimeRichTextBox.BackColor = ViewConstants.RICHTEXTBOX_DISABLED_COLOR;
+			LoggingTimeRichTextBox.ReadOnly = true;
 		}
 
 		public void InitializeButtons()
@@ -71,6 +76,22 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			StartSimulationToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
 			StartSimulationToggleButton.Enabled = false;
 			StartSimulationToggleButton.MouseClick += new MouseEventHandler(OnStartSimulationToggleButtonClicked);
+
+			StartLoggingToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
+			StartLoggingToggleButton.Enabled = false;
+			StartLoggingToggleButton.MouseClick += new MouseEventHandler(OnStartLoggingToggleButtonClicked);
+		}
+
+		public void InitializeCheckBoxes()
+		{
+			UseLogTimeCheckBox.Enabled = false;
+			UseLogTimeCheckBox.CheckedChanged += new EventHandler(OnUseLogTimeCheckboxChanged);
+		}
+
+		private void InitializeProgressBar()
+		{
+			LoggingTimeProgressBar.Value = 0;
+			LoggingTimeProgressBar.Visible = false;
 		}
 	}
 }

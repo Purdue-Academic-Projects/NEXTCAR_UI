@@ -18,6 +18,11 @@ namespace NEXTCAR_UI.Controllers
 		private IHasModelLocation _realTimeModelProperties;
 		private ISimulationState _simulationState;
 
+		public IMainScreen MainScreen { get { return _mainScreen; } private set { _mainScreen = value; } }
+		public ICanControlTargetConnection TargetConnection { get { return _targetConnection; } private set { _targetConnection = value; } }
+		public IHasModelLocation RealTimeModelProperties { get { return _realTimeModelProperties; } private set { _realTimeModelProperties = value; } }
+		public ISimulationState SimulationState { get { return _simulationState; } private set { _simulationState = value; } }
+
 		public RealTimeModelController(
 			IMainScreen mainScreen,
 			ICanControlTargetConnection targetConnection,
@@ -25,52 +30,58 @@ namespace NEXTCAR_UI.Controllers
 			ISimulationState simulationState)
 		{
 			// Register needed models and views
-			this._mainScreen = mainScreen;
-			this._targetConnection = targetConnection;
-			this._realTimeModelProperties = realTimeModelProperties;
-			this._simulationState = simulationState;
+			MainScreen = mainScreen;
+			TargetConnection = targetConnection;
+			RealTimeModelProperties = realTimeModelProperties;
+			SimulationState = simulationState;
 
 			// Subscribe to events
-			this._mainScreen.BrowseForModelFileButtonClicked += new MouseEventHandler(HandleBrowseForModelFileButtonClicked);
-
-			this._targetConnection.TargetConnectionStateChanged += new EventHandler<TargetConnectionStateChangedEventArgs>(HandleTargetConnectionStateChanged);
-			this._realTimeModelProperties.RealTimeModelLocationChanged += new EventHandler(HandleRealTimeModelLocationChanged);
+			MainScreen.BrowseForModelFileButtonClicked += new MouseEventHandler(HandleBrowseForModelFileButtonClicked);
+			TargetConnection.TargetConnectionStateChanged += new EventHandler<TargetConnectionStateChangedEventArgs>(HandleTargetConnectionStateChanged);
+			RealTimeModelProperties.RealTimeModelLocationChanged += new EventHandler(HandleRealTimeModelLocationChanged);
 		}
 
 		private void HandleBrowseForModelFileButtonClicked(object sender, MouseEventArgs args)
 		{
-			this._realTimeModelProperties.BrowseForModel();
+			RealTimeModelProperties.BrowseForModel();
 		}
 
 		private void HandleTargetConnectionStateChanged(object sender, TargetConnectionStateChangedEventArgs args)
 		{
-			this._mainScreen.ChangeLoadModelToggleButtonState(this._targetConnection.IsTargetConnected,
-																this._realTimeModelProperties.IsModelLocationLoaded,
-																this._simulationState.IsModelLoadedOnTarget);
+			ChangeLoadApplicationControls();
 		}
 
 		// FIX ME
 		private void HandleRealTimeModelLocationChanged(object sender, EventArgs args)
 		{
-			this._mainScreen.UpdateRealTimeModelLocationTextBox(this._realTimeModelProperties.RealTimeModelFilePath);
-			if(this._realTimeModelProperties.RealTimeModelFilePath != null)
+			MainScreen.UpdateRealTimeModelLocationTextBox(this._realTimeModelProperties.RealTimeModelFilePath);
+			if(RealTimeModelProperties.RealTimeModelFilePath != null)
 			{
-				if (this._realTimeModelProperties.RealTimeModelFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)==true)
+				if (RealTimeModelProperties.RealTimeModelFilePath.Contains(ModelConstants.REAL_TIME_MODEL_FILE_EXTENSION)==true)
 				{
-					this._mainScreen.ChangeBuildModelButtonState(false);
+					MainScreen.ChangeBuildModelButtonState(false);
 				}
-				else if(this._realTimeModelProperties.RealTimeModelFilePath.Contains(ModelConstants.SIMULINK_FILE_EXTENSION)==true)
+				else if(RealTimeModelProperties.RealTimeModelFilePath.Contains(ModelConstants.SIMULINK_FILE_EXTENSION)==true)
 				{
-					this._mainScreen.ChangeBuildModelButtonState(true);
+					MainScreen.ChangeBuildModelButtonState(true);
 				}
 				else
 				{
-					this._mainScreen.ChangeBuildModelButtonState(false);
+					MainScreen.ChangeBuildModelButtonState(false);
 				}
 			}
-			this._mainScreen.ChangeLoadModelToggleButtonState(this._targetConnection.IsTargetConnected,
-													this._realTimeModelProperties.IsModelLocationLoaded,
-													this._simulationState.IsModelLoadedOnTarget);
+
+			ChangeLoadApplicationControls();
+		}
+
+		private void ChangeLoadApplicationControls()
+		{
+			bool clearDataWhenDisabled = true;
+			bool isLoadApplicationToggleButtonEnabled = TargetConnection.IsTargetConnected && RealTimeModelProperties.IsModelLocationLoaded;
+			bool isLoadedModelRichTextBoxEnable = TargetConnection.IsTargetConnected && SimulationState.IsModelLoadedOnTarget;
+			MainScreen.ChangeLoadApplicationToggleButtonState(SimulationState.IsModelLoadedOnTarget, isLoadApplicationToggleButtonEnabled);
+			MainScreen.ChangeLoadedModelRichTextBoxState(isLoadedModelRichTextBoxEnable, clearDataWhenDisabled);
+			MainScreen.ChangeStopTimeRichTextBoxState(isLoadedModelRichTextBoxEnable, clearDataWhenDisabled);
 		}
 	}
 }

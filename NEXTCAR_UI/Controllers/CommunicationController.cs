@@ -15,41 +15,45 @@ namespace NEXTCAR_UI.Controllers
 		private IMainScreen _mainScreen;
 		private ICanControlTargetConnection _targetConnection;
 
+		public IMainScreen MainScreen { get { return _mainScreen; } private set { _mainScreen = value; } }
+		public ICanControlTargetConnection TargetConnection { get { return _targetConnection; } private set { _targetConnection = value; } }
+
 		public CommunicationController(
 			IMainScreen mainScreen,
 			ICanControlTargetConnection targetConnection)
 		{
 			// Register needed models and views
-			this._mainScreen = mainScreen;
-			this._targetConnection = targetConnection;
+			MainScreen = mainScreen;
+			TargetConnection = targetConnection;
 
 			// Subscribe to events
-			this._mainScreen.ConnectToggleButtonClicked += new MouseEventHandler(HandleToggleButtonClicked);
-			this._mainScreen.IPaddressTextChanged += new EventHandler(HandleIPaddressTextChanged);
-			this._mainScreen.PortTextChanged += new EventHandler(HandlePortTextChanged);
+			MainScreen.ConnectToggleButtonClicked += new MouseEventHandler(HandleToggleButtonClicked);
+			MainScreen.IPaddressTextChanged += new EventHandler(HandleIPaddressTextChanged);
+			MainScreen.PortTextChanged += new EventHandler(HandlePortTextChanged);
 
-			this._targetConnection.TargetConnectionStateChanged 
+			TargetConnection.TargetConnectionStateChanged 
 				+= new EventHandler<TargetConnectionStateChangedEventArgs>(HandleTargetConnectionStateChanged);
 		}
 
 		private void HandleToggleButtonClicked(object sender, MouseEventArgs args)
 		{
-			if(this._targetConnection.IsTargetConnected == false) { this._targetConnection.ConnectToTarget(); }
-			else { this._targetConnection.DisconnectFromTarget(); }
+			if(TargetConnection.IsTargetConnected == false) { TargetConnection.ConnectToTarget(); }
+			else { TargetConnection.DisconnectFromTarget(); }
 			
 		}
 		private void HandleIPaddressTextChanged(object sender, EventArgs args)
 		{
-			this._targetConnection.TargetIPaddress = ((RichTextBox)sender).Text;
+			TargetConnection.TargetIPaddress = ((RichTextBox)sender).Text;
 		}
 		private void HandlePortTextChanged(object sender, EventArgs args)
 		{
-			this._targetConnection.TargetPort = ((RichTextBox)sender).Text;
+			TargetConnection.TargetPort = ((RichTextBox)sender).Text;
 		}
 
 		private void HandleTargetConnectionStateChanged(object sender, TargetConnectionStateChangedEventArgs args)
 		{
-			this._mainScreen.ChangeConnectionToggleButtonState(args.IsTargetConnected);
+			MainScreen.ChangeConnectionProperties(!args.IsTargetConnected);
+			MainScreen.ChangeConnectToggleButtonState(!args.IsTargetConnected);
 		}
 	}
 }

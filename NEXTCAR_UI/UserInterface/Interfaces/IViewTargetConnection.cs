@@ -15,6 +15,7 @@ namespace NEXTCAR_UI.UserInterface.Interfaces
 		event EventHandler IPaddressTextChanged;
 		event EventHandler PortTextChanged;
 
-		void ChangeConnectionToggleButtonState(bool isTargetConnected);
+		void ChangeConnectToggleButtonState(bool isToggleButtonInDefaultState);
+		void ChangeConnectionProperties(bool isRichTextBoxActive);
 	}
 }

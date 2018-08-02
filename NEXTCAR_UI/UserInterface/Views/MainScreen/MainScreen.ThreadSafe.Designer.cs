@@ -12,168 +12,182 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 {
 	public partial class MainScreen
 	{
-		// Thread-safe handling of the connection toggle button
-		delegate void ConnectionToggleStateChangeCallback(ToggleButton ToggleButton, bool isTargetConnected);
-		private void ConnectionToggleStateChange(ToggleButton ToggleButton, bool isTargetConnected)
+		// Thread-safe handling of the toggle buttons
+		delegate void ToggleButtonStateChangeCallback(ToggleButton toggleButton, bool isToggleButtonInDefaultState, bool isToggleButtonEnabled = true);
+		private void ToggleButtonStateChange(ToggleButton toggleButton, bool isToggleButtonInDefaultState, bool isToggleButtonEnabled = true)
 		{
-			if (ToggleButton.InvokeRequired)
+			if (toggleButton.InvokeRequired)
 			{
-				ConnectionToggleStateChangeCallback callback = new ConnectionToggleStateChangeCallback(ConnectionToggleStateChange);
-				this.Invoke(callback, new object[] { ToggleButton, isTargetConnected });
+				ToggleButtonStateChangeCallback callback = new ToggleButtonStateChangeCallback(ToggleButtonStateChange);
+				this.Invoke(callback, new object[] { toggleButton, isToggleButtonInDefaultState, isToggleButtonEnabled});
 			}
 			else
 			{
-				if (isTargetConnected == false)
+				// Handle the ConnectToggleButton behavior
+				if (toggleButton == ConnectToggleButton)
 				{
-					ToggleButton.Text = ViewConstants.CONNECT_BUTTON_TEXT;
-					ToggleButton.BackColor = ViewConstants.CONNECT_BUTTON_COLOR;
-					ToggleButton.GlowColor = ViewConstants.CONNECT_BUTTON_COLOR;
+					if (isToggleButtonInDefaultState)
+					{
+						toggleButton.Text = ViewConstants.CONNECT_BUTTON_TEXT;
+						toggleButton.BackColor = ViewConstants.CONNECT_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.CONNECT_BUTTON_COLOR;
+					}
+					else
+					{
+						toggleButton.Text = ViewConstants.DISCONNECT_BUTTON_TEXT;
+						toggleButton.BackColor = ViewConstants.DISCONNECT_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.DISCONNECT_BUTTON_COLOR;
+					}
 				}
+				// Handle the LoadModelToggleButton behavior
+				else if (toggleButton == LoadModelToggleButton)
+				{
+					if (isToggleButtonInDefaultState)
+					{
+						toggleButton.Text = ViewConstants.UNLOAD_BUTTON_TEXT;
+						toggleButton.BackColor = ViewConstants.UNLOAD_MODEL_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.UNLOAD_MODEL_BUTTON_COLOR;
+					}
+					else
+					{
+						toggleButton.Text = ViewConstants.LOAD_BUTTON_TEXT;
+						toggleButton.BackColor = ViewConstants.LOAD_MODEL_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.LOAD_MODEL_BUTTON_COLOR;
+					}
+				}
+				// Handle the StartSimulationToggleButton behavior
+				else if (toggleButton == StartSimulationToggleButton)
+				{
+					if (isToggleButtonInDefaultState)
+					{
+						toggleButton.BackColor = ViewConstants.START_SIMULATION_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.START_SIMULATION_BUTTON_COLOR;
+						toggleButton.Text = ViewConstants.START_SIMULATION_BUTTON_TEXT;
+					}
+					else
+					{
+						toggleButton.BackColor = ViewConstants.STOP_SIMULATION_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.STOP_SIMULATION_BUTTON_COLOR;
+						toggleButton.Text = ViewConstants.STOP_SIMULATION_BUTTON_TEXT;
+					}
+				}
+				// Handle the StartLoggingToggleButton behavior
+				else if (toggleButton == StartLoggingToggleButton)
+				{
+					if (isToggleButtonInDefaultState)
+					{
+						toggleButton.Text = ViewConstants.START_LOGGING_DATA_TEXT;
+						toggleButton.BackColor = ViewConstants.START_LOGGING_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.START_LOGGING_BUTTON_COLOR;
+					}
+					else
+					{
+						toggleButton.Text = ViewConstants.STOP_LOGGING_DATA_TEXT;
+						toggleButton.BackColor = ViewConstants.STOP_LOGGING_BUTTON_COLOR;
+						toggleButton.GlowColor = ViewConstants.STOP_LOGGING_BUTTON_COLOR;
+					}
+				}
+
+				// Handle enabling/disabling of all toggle buttons
+				if (isToggleButtonEnabled) { toggleButton.Enabled = true; }
 				else
 				{
-					ToggleButton.Text = ViewConstants.DISCONNECT_BUTTON_TEXT;
-					ToggleButton.BackColor = ViewConstants.DISCONNECT_BUTTON_COLOR;
-					ToggleButton.GlowColor = ViewConstants.DISCONNECT_BUTTON_COLOR;
+					toggleButton.Enabled = false;
+					toggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
 				}
 			}
 		}
 
-		// Thread-safe handling of the real time model text box
-		delegate void RichTextBoxTextChangeCallback(RichTextBox richTextBox, string newTextBoxText);
-		private void RichTextBoxTextChange(RichTextBox richTextBox, string newTextBoxText)
+		// Thread-safe handling of the buttons (these use the ToggleButton class but just act as regular buttons)
+		delegate void ButtonStateChangeCallback(ToggleButton button, bool isButtonEnabled);
+		private void ButtonStateChange(ToggleButton button, bool isButtonEnabled)
+		{
+			if (button.InvokeRequired)
+			{
+				ButtonStateChangeCallback callback = new ButtonStateChangeCallback(ButtonStateChange);
+				this.Invoke(callback, new object[] { button, isButtonEnabled });
+			}
+			else
+			{
+				// Handle the BuildModelFileButton behavior
+				if (button == BuildModelFileButton)
+				{
+					// TODO - not yet implemented
+				}
+				// Handle the RebootTargetPCButton behavior
+				else if (button == RebootTargetPCButton)
+				{
+					if(isButtonEnabled)
+					{
+						button.BackColor = ViewConstants.ACTIVE_BUTTON_COLOR;
+						button.GlowColor = ViewConstants.ACTIVE_BUTTON_COLOR;
+						button.Enabled = true;
+					}
+					else
+					{
+						button.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
+						button.Enabled = false;
+					}
+				}
+			}
+		}
+
+		// Thread-safe handling of the rich text boxes
+		delegate void RichTextBoxStateChangeCallback(
+			RichTextBox richTextBox,
+			bool isRichTextBoxActive,
+			bool clearTextOnDisable = false,
+			string newRichTextBoxText = null);
+		private void RichTextBoxStateChange(
+			RichTextBox richTextBox, 
+			bool isRichTextBoxActive, 
+			bool clearTextOnDisable=false, 
+			string newRichTextBoxText = null)
 		{
 			if (richTextBox.InvokeRequired)
 			{
-				RichTextBoxTextChangeCallback callback = new RichTextBoxTextChangeCallback(RichTextBoxTextChange);
-				this.Invoke(callback, new object[] { richTextBox, newTextBoxText });
+				RichTextBoxStateChangeCallback callback = new RichTextBoxStateChangeCallback(RichTextBoxStateChange);
+				this.Invoke(callback, new object[] { richTextBox, isRichTextBoxActive, clearTextOnDisable, newRichTextBoxText });
 			}
 			else
 			{
-				richTextBox.Text = newTextBoxText;
-			}
-		}
-
-		// Thread-safe handling of the load application toggle button
-		delegate void LoadApplicationToggleButtonChangeCallback(ToggleButton ToggleButton,
-			bool isTargetConnected,
-			bool isRealTimeFileLoadedInTextbox,
-			bool isModelLoadedOnTarget);
-		private void LoadApplicationToggleButtonChange(ToggleButton ToggleButton,
-			bool isTargetConnected,
-			bool isRealTimeFileLoadedInTextbox,
-			bool isModelLoadedOnTarget)
-		{
-			if (ToggleButton.InvokeRequired)
-			{
-				LoadApplicationToggleButtonChangeCallback callback = new LoadApplicationToggleButtonChangeCallback(LoadApplicationToggleButtonChange);
-				this.Invoke(callback, new object[] { ToggleButton, isTargetConnected, isRealTimeFileLoadedInTextbox, isModelLoadedOnTarget });
-			}
-			else
-			{
-				// If target is connected, determine whether the toggle button should display LOAD or UNLOAD
-				if (isTargetConnected)
+				// Handle the IPaddressRichTextBox/PortRichTextBox/StopTimeRichTextBox/LoggingTimeRichTextBox behavior
+				if ((richTextBox == IPaddressRichTextBox)
+					|| (richTextBox == PortRichTextBox)
+					|| (richTextBox == StopTimeRichTextBox)
+					|| (richTextBox == LoggingTimeRichTextBox))
 				{
-					if (isModelLoadedOnTarget)
+					if(isRichTextBoxActive)
 					{
-						ToggleButton.Text = ViewConstants.UNLOAD_BUTTON_TEXT;
-						ToggleButton.BackColor = ViewConstants.UNLOAD_MODEL_BUTTON_COLOR;
-						ToggleButton.GlowColor = ViewConstants.UNLOAD_MODEL_BUTTON_COLOR;
-						ToggleButton.Enabled = true;
+						richTextBox.ReadOnly = false;
+						richTextBox.BackColor = ViewConstants.RICHTEXTBOX_ENABLED_COLOR;
 					}
 					else
 					{
-						if (isRealTimeFileLoadedInTextbox)
-						{
-							ToggleButton.Text = ViewConstants.LOAD_BUTTON_TEXT;
-							ToggleButton.BackColor = ViewConstants.LOAD_MODEL_BUTTON_COLOR;
-							ToggleButton.GlowColor = ViewConstants.LOAD_MODEL_BUTTON_COLOR;
-							ToggleButton.Enabled = true;
-						}
-						else
-						{
-							ToggleButton.Text = ViewConstants.LOAD_BUTTON_TEXT;
-							ToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
-							ToggleButton.Enabled = false;
-						}
+						richTextBox.ReadOnly = true;
+						richTextBox.BackColor = ViewConstants.RICHTEXTBOX_DISABLED_COLOR;
 					}
 				}
-				// If target is not connected, reset toggle button back to default state
-				else
+				// Handle the RealTimeModelFileLocationRichTextBox/LoadedModelRichTextBox behavior
+				else if ((richTextBox == RealTimeModelFileLocationRichTextBox)
+					|| (richTextBox == LoadedModelRichTextBox))
 				{
-					ToggleButton.Text = ViewConstants.LOAD_BUTTON_TEXT;
-					ToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
-					ToggleButton.Enabled = false;
-				}
-			}
-		}
-
-		// Thread-safe handling of the target reboot button
-		delegate void TargetRebootButtonChangeCallback(ToggleButton ToggleButton, bool isTargetConnected);
-		private void TargetRebootButtonChange(ToggleButton ToggleButton, bool isTargetConnected)
-		{
-			if (ToggleButton.InvokeRequired)
-			{
-				ConnectionToggleStateChangeCallback callback = new ConnectionToggleStateChangeCallback(TargetRebootButtonChange);
-				this.Invoke(callback, new object[] { ToggleButton, isTargetConnected });
-			}
-			else
-			{
-				if (isTargetConnected == false)
-				{
-					ToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
-					ToggleButton.Enabled = false;
-				}
-				else
-				{
-					ToggleButton.BackColor = ViewConstants.ACTIVE_BUTTON_COLOR;
-					ToggleButton.GlowColor = ViewConstants.ACTIVE_BUTTON_COLOR;
-					ToggleButton.Enabled = true;
-				}
-			}
-		}
-
-		// Thread-safe handling of the simulation start toggle button
-		delegate void StartSimulationToggleButtonChangeCallback(
-			ToggleButton ToggleButton,
-			bool isTargetConnected,
-			bool isModelLoadedOnTarget,
-			bool isTargetRunning);
-		private void StartSimulationToggleButtonChange(
-			ToggleButton ToggleButton,
-			bool isTargetConnected,
-			bool isModelLoadedOnTarget,
-			bool isTargetRunning)
-		{
-			if (ToggleButton.InvokeRequired)
-			{
-				StartSimulationToggleButtonChangeCallback callback = new StartSimulationToggleButtonChangeCallback(StartSimulationToggleButtonChange);
-				this.Invoke(callback, new object[] { ToggleButton, isTargetConnected, isModelLoadedOnTarget, isTargetRunning });
-			}
-			else
-			{
-				if (isTargetConnected && isModelLoadedOnTarget)
-				{
-					if (isTargetRunning)
+					if (isRichTextBoxActive)
 					{
-						ToggleButton.Enabled = true;
-						ToggleButton.BackColor = ViewConstants.STOP_SIMULATION_BUTTON_COLOR;
-						ToggleButton.GlowColor = ViewConstants.STOP_SIMULATION_BUTTON_COLOR;
-						ToggleButton.Text = ViewConstants.STOP_SIMULATION_BUTTON_TEXT;
+						richTextBox.ReadOnly = true;
+						richTextBox.BackColor = ViewConstants.RICHTEXTBOX_DISABLED_COLOR;
 					}
 					else
 					{
-						ToggleButton.Enabled = true;
-						ToggleButton.BackColor = ViewConstants.START_SIMULATION_BUTTON_COLOR;
-						ToggleButton.GlowColor = ViewConstants.START_SIMULATION_BUTTON_COLOR;
-						ToggleButton.Text = ViewConstants.START_SIMULATION_BUTTON_TEXT;
+						richTextBox.ReadOnly = true;
+						richTextBox.BackColor = ViewConstants.RICHTEXTBOX_DISABLED_COLOR;
 					}
 				}
-				else
-				{
-					ToggleButton.Enabled = false;
-					ToggleButton.BackColor = ViewConstants.INACTIVE_BUTTON_COLOR;
-					ToggleButton.Text = ViewConstants.START_SIMULATION_BUTTON_TEXT;
-				}
+
+				// Handle clearing of text data on disable for all rich text boxes
+				if (!isRichTextBoxActive && clearTextOnDisable) { richTextBox.Text = ""; }
+				// Handle updating of text for all rich text boxes
+				if(newRichTextBoxText!= null) { richTextBox.Text = newRichTextBoxText; }
 			}
 		}
 
@@ -181,7 +195,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 		delegate void StatusStripValueChangedCallback(StatusStrip statusStrip, ToolStripStatusLabel toolStripStatusLabel, string newValue);
 		private void StatusStripValueChanged(StatusStrip statusStrip, ToolStripStatusLabel toolStripStatusLabel, string newValue)
 		{
-			if(statusStrip.InvokeRequired)
+			if (statusStrip.InvokeRequired)
 			{
 				StatusStripValueChangedCallback callback = new StatusStripValueChangedCallback(StatusStripValueChanged);
 				this.Invoke(callback, new object[] { statusStrip, toolStripStatusLabel, newValue });
@@ -189,6 +203,41 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 			else
 			{
 				toolStripStatusLabel.Text = newValue;
+			}
+		}
+
+		// Thread-safe handling of CheckBox enables
+		delegate void CheckBoxEnableChangedCallback(CheckBox checkBox, bool isEnabled, bool clearDataIfDisabled);
+		private void CheckBoxEnableChanged(CheckBox checkBox, bool isEnabled, bool clearDataIfDisabled)
+		{
+			if (checkBox.InvokeRequired)
+			{
+				CheckBoxEnableChangedCallback callback = new CheckBoxEnableChangedCallback(CheckBoxEnableChanged);
+				this.Invoke(callback, new object[] { checkBox, isEnabled, clearDataIfDisabled });
+			}
+			else
+			{
+				if (isEnabled) { checkBox.Enabled = true; }
+				else
+				{
+					checkBox.Enabled = false;
+					if (clearDataIfDisabled) { checkBox.CheckState = CheckState.Unchecked; }
+				}
+			}
+		}
+
+		// Thread-safe handling of Progress Bar
+		delegate void ProgessBarChangeCallback(ProgressBar progressBar, bool isVisible);
+		private void ProgessBarChange(ProgressBar progressBar, bool isVisible)
+		{
+			if(progressBar.InvokeRequired)
+			{
+				ProgessBarChangeCallback callback = new ProgessBarChangeCallback(ProgessBarChange);
+				this.Invoke(callback, new object[] { progressBar, isVisible });
+			}
+			else
+			{
+				progressBar.Visible = isVisible;
 			}
 		}
 	}

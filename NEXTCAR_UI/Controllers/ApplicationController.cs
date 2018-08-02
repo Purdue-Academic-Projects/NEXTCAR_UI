@@ -2,6 +2,7 @@
 
 using NEXTCAR_UI.Business.Containers;
 using NEXTCAR_UI.Business.Interfaces;
+using NEXTCAR_UI.DataClasses;
 using NEXTCAR_UI.UserInterface.Interfaces;
 
 using System;
@@ -21,6 +22,12 @@ namespace NEXTCAR_UI.Controllers
 		private ICanMonitorRealTime _realTimeMonitor;
 		private ISimulationState _simulationState;
 
+		public IMainScreen MainScreen { get { return _mainScreen; } private set { _mainScreen = value; } }
+		public ICanControlTargetConnection TargetConnection { get { return _targetConnection; } private set { _targetConnection = value; } }
+		public IHasModelLocation RealTimeModelProperties { get { return _realTimeModelProperties; } private set { _realTimeModelProperties = value; } }
+		public ICanMonitorRealTime RealTimeMonitor { get { return _realTimeMonitor; } private set { _realTimeMonitor = value; } }
+		public ISimulationState SimulationState { get { return _simulationState; } private set { _simulationState = value; } }
+
 		public ApplicationController(
 			IMainScreen mainScreen,
 			ICanControlTargetConnection targetConnection,
@@ -29,106 +36,122 @@ namespace NEXTCAR_UI.Controllers
 			ISimulationState simulationState)
 		{
 			// Register needed models and views
-			this._mainScreen = mainScreen;
-			this._targetConnection = targetConnection;
-			this._realTimeModelProperties = realTimeModelProperties;
-			this._realTimeMonitor = realTimeMonitor;
-			this._simulationState = simulationState;
+			MainScreen = mainScreen;
+			TargetConnection = targetConnection;
+			RealTimeModelProperties = realTimeModelProperties;
+			RealTimeMonitor = realTimeMonitor;
+			SimulationState = simulationState;
 
 			// Subscribe to events
-			this._mainScreen.LoadModelToggleButtonClicked += new MouseEventHandler(HandleLoadModelToggleButtonClicked);
-			this._mainScreen.RebootTargetPCButtonClicked += new MouseEventHandler(HandleRebootTargetPCButtonClicked);
-			this._mainScreen.StartSimulationToggleButtonClicked += new MouseEventHandler(HandleStartSimulationToggleButtonClicked);
-			this._mainScreen.StopTimeTextChanged += new EventHandler<StopTimeChangedEventArgs>(HandleStopTimeTextChanged);
-			this._targetConnection.TargetConnectionStateChanged += 
+			MainScreen.LoadModelToggleButtonClicked += new MouseEventHandler(HandleLoadModelToggleButtonClicked);
+			MainScreen.RebootTargetPCButtonClicked += new MouseEventHandler(HandleRebootTargetPCButtonClicked);
+			MainScreen.StartSimulationToggleButtonClicked += new MouseEventHandler(HandleStartSimulationToggleButtonClicked);
+			MainScreen.StopTimeTextChanged += new EventHandler<StopTimeChangedEventArgs>(HandleStopTimeTextChanged);
+			TargetConnection.TargetConnectionStateChanged += 
 				new EventHandler<TargetConnectionStateChangedEventArgs>(HandleTargetConnectionStateChanged);
-			this._realTimeMonitor.ApplicationPropertiesChanged +=
+			RealTimeMonitor.ApplicationPropertiesChanged +=
 				new EventHandler<ApplicationPropertiesChangedEventArgs>(HandleApplicationPropertiesChanged);
-			this._realTimeMonitor.PropertyUpdateTimerElapsed += new EventHandler(HandlePropertyUpdateTimerElapsed);
-			this._simulationState.MaximumTeTChanged += new EventHandler<MaximumTeTChangedEventArgs>(HandleMaximumTeTChanged);
-			this._simulationState.StopTimeChanged += new EventHandler<StopTimeChangedEventArgs>(HandleStopTimeChanged);
+			RealTimeMonitor.PropertyUpdateTimerElapsed += new EventHandler(HandlePropertyUpdateTimerElapsed);
+			SimulationState.MaximumTeTChanged += new EventHandler<MaximumTeTChangedEventArgs>(HandleMaximumTeTChanged);
+			SimulationState.StopTimeChanged += new EventHandler<StopTimeChangedEventArgs>(HandleStopTimeChanged);
 		}
 
 		private void HandleLoadModelToggleButtonClicked(object sender, MouseEventArgs args)
 		{
-			if (this._simulationState.IsModelLoadedOnTarget)
+			if (SimulationState.IsModelLoadedOnTarget)
 			{
-				this._simulationState.UnloadRealTimeModel(this._targetConnection);
-				this._realTimeMonitor.ApplicationState.ResetApplicationState();
+				// If the model is already loaded, unload the model and clear the corresponding application data
+				SimulationState.UnloadRealTimeModel(TargetConnection);
+				RealTimeMonitor.ApplicationState.ResetApplicationState();
+				RealTimeMonitor.StopPropertyUpdatesTimer();
 			}
 			else
 			{
-				this._simulationState.LoadRealTimeModel(this._targetConnection, this._realTimeModelProperties.RealTimeModelFilePath);
-				this._realTimeMonitor.ApplicationState = new LoadedApplicationState(this._simulationState.LoadedApplication);
+				// Otherwise, load the model and create a new application state
+				SimulationState.LoadRealTimeModel(TargetConnection, RealTimeModelProperties.RealTimeModelFilePath);
+				RealTimeMonitor.ApplicationState = new LoadedApplicationState(SimulationState.LoadedApplication);
 			}
 
-			this._mainScreen.ChangeLoadModelToggleButtonState(
-				this._targetConnection.IsTargetConnected,
-				this._realTimeModelProperties.IsModelLocationLoaded,
-				this._simulationState.IsModelLoadedOnTarget);
-			this._mainScreen.ChangeSimulationStartToggleButtonState(
-				this._targetConnection.IsTargetConnected,
-				this._simulationState.IsModelLoadedOnTarget,
-				this._simulationState.IsSimulationRunning);
+			bool clearDataWhenDisabled = true;
+			bool isLoadApplicationToggleButtonEnabled = TargetConnection.IsTargetConnected && RealTimeModelProperties.IsModelLocationLoaded;
+			bool isApplicationControlsEnabled = TargetConnection.IsTargetConnected && SimulationState.IsModelLoadedOnTarget;
+			MainScreen.ChangeLoadApplicationToggleButtonState(SimulationState.IsModelLoadedOnTarget, isLoadApplicationToggleButtonEnabled);
+			MainScreen.ChangeLoadedModelRichTextBoxState(isApplicationControlsEnabled, clearDataWhenDisabled);
+			MainScreen.ChangeStopTimeRichTextBoxState(isApplicationControlsEnabled, clearDataWhenDisabled);
+			MainScreen.ChangeSimulationStartToggleButtonState(!SimulationState.IsSimulationRunning, isApplicationControlsEnabled);
 		}
 
 		private void HandleRebootTargetPCButtonClicked(object sender, MouseEventArgs args)
 		{
-			this._targetConnection.RebootTargetPC();
+			TargetConnection.RebootTargetPC();
 		}
 
 		private void HandleStartSimulationToggleButtonClicked(object sender, MouseEventArgs args)
 		{
-			if(this._simulationState.IsSimulationRunning == true) { this._simulationState.StopTargetApplication(); }
+			if(SimulationState.IsSimulationRunning) { SimulationState.StopTargetApplication(); }
 			else
 			{
-				this._simulationState.StartTargetApplication();
-				this._realTimeMonitor.StartPropertyUpdatesTimer();
+				SimulationState.StartTargetApplication();
+				RealTimeMonitor.StartPropertyUpdatesTimer();
 			}
-			this._mainScreen.ChangeSimulationStartToggleButtonState(
-				this._targetConnection.IsTargetConnected,
-				this._simulationState.IsModelLoadedOnTarget,
-				this._simulationState.IsSimulationRunning);
+
+			bool isSimulationStartToggleButtonEnabled = TargetConnection.IsTargetConnected && SimulationState.IsModelLoadedOnTarget;
+			MainScreen.ChangeSimulationStartToggleButtonState(!SimulationState.IsSimulationRunning, isSimulationStartToggleButtonEnabled);
+
+			// Update this at the start of every simulation in case the user removed it
+			MainScreen.UpdateStopTimeValue(SimulationState.StopTime);
 		}
 
 		private void HandleStopTimeTextChanged(object sender, StopTimeChangedEventArgs args)
 		{
-			this._simulationState.StopTime = args.StopTime;
+			SimulationState.StopTime = args.StopTime;
 		}
 
 		private void HandleTargetConnectionStateChanged(object sender, TargetConnectionStateChangedEventArgs args)
 		{
-			if (this._targetConnection.IsTargetConnected == false)
+			if (TargetConnection.IsTargetConnected == false)
 			{
-				this._realTimeMonitor.ApplicationState.ResetApplicationState();
-				this._simulationState.ResetSimulationProperties();
+				RealTimeMonitor.ApplicationState.ResetApplicationState();
+				SimulationState.ResetSimulationProperties();
+				RealTimeMonitor.StopPropertyUpdatesTimer();
 			}
 
-			this._mainScreen.ChangeRebootButtonState(this._targetConnection.IsTargetConnected);
-			this._mainScreen.ChangeSimulationStartToggleButtonState(
-				this._targetConnection.IsTargetConnected,
-				this._simulationState.IsModelLoadedOnTarget, 
-				this._simulationState.IsSimulationRunning);
+			bool isSimulationStartToggleButtonEnabled = TargetConnection.IsTargetConnected && SimulationState.IsModelLoadedOnTarget;
+			MainScreen.ChangeSimulationStartToggleButtonState(!SimulationState.IsSimulationRunning, isSimulationStartToggleButtonEnabled);
+			MainScreen.ChangeRebootButtonState(TargetConnection.IsTargetConnected);
 		}
 
 		private void HandlePropertyUpdateTimerElapsed(object sender, EventArgs args)
 		{
-			this._realTimeMonitor.ApplicationState = new LoadedApplicationState(this._simulationState.LoadedApplication);
+			RealTimeMonitor.ApplicationState = new LoadedApplicationState(SimulationState.LoadedApplication);
 		}
 
 		private void HandleApplicationPropertiesChanged(object sender, ApplicationPropertiesChangedEventArgs args)
 		{
-			this._mainScreen.UpdateApplicationProperties(args);
+			MainScreen.UpdateApplicationProperties(args);
+
+			if(SimulationState.IsSimulationRunning)
+			{
+				// If target stopped automatically due to time stop or CPU exception, change control states as if the 
+				// user had clicked "Stop Simulation"
+				bool isValidStopTimeReached = (args.LoadedApplicationProperties.ExecutionTime >= SimulationState.StopTime) &&
+					(SimulationState.StopTime != ModelConstants.INFINITE_STOP_TIME);
+				if (isValidStopTimeReached || args.LoadedApplicationProperties.CpuOverload)
+				{
+					MouseEventArgs newArgs = new MouseEventArgs(MouseButtons.None, 0, 0, 0, 0);
+					HandleStartSimulationToggleButtonClicked(this, newArgs);
+				}
+			}
 		}
 
 		private void HandleMaximumTeTChanged(object sender, MaximumTeTChangedEventArgs args)
 		{
-			this._mainScreen.UpdateMaximumTeTValue(args.MaximumTeT);
+			MainScreen.UpdateMaximumTeTValue(args.MaximumTeT);
 		}
 
 		private void HandleStopTimeChanged(object sender, StopTimeChangedEventArgs args)
 		{
-			this._mainScreen.UpdateStopTimeValue(args.StopTime);
+			MainScreen.UpdateStopTimeValue(args.StopTime);
 		}
 	}
 }

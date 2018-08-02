@@ -20,7 +20,7 @@ namespace NEXTCAR_UI.UserInterface.Views.MainScreen
 
 		public void UpdateRealTimeModelLocationTextBox(string updatedFilePath)
 		{
-			this.RichTextBoxTextChange(this.RealTimeModelFileLocationRichTextBox, updatedFilePath);
+			RichTextBoxStateChange(this.RealTimeModelFileLocationRichTextBox, this.RealTimeModelFileLocationRichTextBox.Enabled, false, updatedFilePath);
 		}
 
 		public void ChangeBuildModelButtonState(bool isButtonEnabled)
